@@ -496,6 +496,7 @@ namespace LazerFilesViewer
             if (FileListView.SelectedItems.Count <= 0)
             {
                 TSMI_Empty();
+                TSMI_File_GoToFolder.Visible = false;
             }
             else
             {
