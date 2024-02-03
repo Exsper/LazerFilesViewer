@@ -722,16 +722,23 @@ namespace LazerFilesViewer
 
         private void DeleteSelected()
         {
-            foreach (FakeFile ff in SelectedItemsList.FakeFiles)
+            try
             {
-                string sourcePath = LazerFilePath + ff.GetFilePath();
-                FileSystem.DeleteFile(sourcePath, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                foreach (FakeFile ff in SelectedItemsList.FakeFiles)
+                {
+                    string sourcePath = LazerFilePath + ff.GetFilePath();
+                    FileSystem.DeleteFile(sourcePath, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                }
+                Reload(false);
+                Process p = new Process();
+                p.StartInfo.FileName = "explorer.exe";
+                p.StartInfo.Arguments = "shell:RecycleBinFolder";
+                p.Start();
             }
-            Reload(false);
-            Process p = new Process();
-            p.StartInfo.FileName = "explorer.exe";
-            p.StartInfo.Arguments = "shell:RecycleBinFolder";
-            p.Start();
+            catch(Exception ex)
+            {
+                MessageBox.Show("É¾³ýÎÄ¼þÊ§°Ü\r\n" + ex, "´íÎó", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void TSMI_File_EnableMulti_Delete_Click(object sender, EventArgs e)
