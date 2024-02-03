@@ -41,6 +41,7 @@
             FileListView = new ListView();
             NameColumnHeader = new ColumnHeader();
             TypeColumnHeader = new ColumnHeader();
+            FileExistColumnHeader = new ColumnHeader();
             GamePathColumnHeader = new ColumnHeader();
             FilePathColumnHeader = new ColumnHeader();
             ViewerContextMenuStrip = new ContextMenuStrip(components);
@@ -66,6 +67,8 @@
             AddressToolStripComboBox = new ToolStripComboBox();
             toolStripSeparator2 = new ToolStripSeparator();
             SearchToolStripComboBox = new ToolStripComboBox();
+            toolStripSeparator4 = new ToolStripSeparator();
+            HideDeletedStripMenuItem = new ToolStripMenuItem();
             MainMenuStrip.SuspendLayout();
             ViewerContextMenuStrip.SuspendLayout();
             MainToolStrip.SuspendLayout();
@@ -108,7 +111,7 @@
             // 
             // OptionsStripMenuItem
             // 
-            OptionsStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { DeleteWarningStripMenuItem, CleanTempStripMenuItem });
+            OptionsStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { DeleteWarningStripMenuItem, HideDeletedStripMenuItem, toolStripSeparator4, CleanTempStripMenuItem });
             OptionsStripMenuItem.Name = "OptionsStripMenuItem";
             OptionsStripMenuItem.Size = new Size(62, 21);
             OptionsStripMenuItem.Text = "选项(&O)";
@@ -119,7 +122,7 @@
             DeleteWarningStripMenuItem.CheckOnClick = true;
             DeleteWarningStripMenuItem.CheckState = CheckState.Checked;
             DeleteWarningStripMenuItem.Name = "DeleteWarningStripMenuItem";
-            DeleteWarningStripMenuItem.Size = new Size(212, 22);
+            DeleteWarningStripMenuItem.Size = new Size(225, 22);
             DeleteWarningStripMenuItem.Text = "删除时提醒(&D)";
             DeleteWarningStripMenuItem.Click += DeleteWarningStripMenuItem_Click;
             // 
@@ -129,14 +132,14 @@
             CleanTempStripMenuItem.CheckOnClick = true;
             CleanTempStripMenuItem.CheckState = CheckState.Checked;
             CleanTempStripMenuItem.Name = "CleanTempStripMenuItem";
-            CleanTempStripMenuItem.Size = new Size(212, 22);
+            CleanTempStripMenuItem.Size = new Size(225, 22);
             CleanTempStripMenuItem.Text = "启动时清空临时文件夹(&C)";
             CleanTempStripMenuItem.Click += CleanTempStripMenuItem_Click;
             // 
             // FileListView
             // 
             FileListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            FileListView.Columns.AddRange(new ColumnHeader[] { NameColumnHeader, TypeColumnHeader, GamePathColumnHeader, FilePathColumnHeader });
+            FileListView.Columns.AddRange(new ColumnHeader[] { NameColumnHeader, TypeColumnHeader, FileExistColumnHeader, GamePathColumnHeader, FilePathColumnHeader });
             FileListView.ContextMenuStrip = ViewerContextMenuStrip;
             FileListView.Location = new Point(0, 52);
             FileListView.Name = "FileListView";
@@ -156,6 +159,10 @@
             // TypeColumnHeader
             // 
             TypeColumnHeader.Text = "类型";
+            // 
+            // FileExistColumnHeader
+            // 
+            FileExistColumnHeader.Text = "文件存在";
             // 
             // GamePathColumnHeader
             // 
@@ -267,6 +274,7 @@
             TSMI_Empty_Reload.Size = new Size(220, 22);
             TSMI_Empty_Reload.Text = "刷新";
             TSMI_Empty_Reload.ToolTipText = "重新加载数据库文件并打开当前文件夹";
+            TSMI_Empty_Reload.Click += TSMI_Empty_Reload_Click;
             // 
             // IconImageList
             // 
@@ -353,6 +361,19 @@
             SearchToolStripComboBox.Leave += SearchToolStripComboBox_Leave;
             SearchToolStripComboBox.KeyDown += SearchToolStripComboBox_KeyDown;
             // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new Size(222, 6);
+            // 
+            // HideDeletedStripMenuItem
+            // 
+            HideDeletedStripMenuItem.CheckOnClick = true;
+            HideDeletedStripMenuItem.Name = "HideDeletedStripMenuItem";
+            HideDeletedStripMenuItem.Size = new Size(213, 22);
+            HideDeletedStripMenuItem.Text = "隐藏不存在的存储文件(&H)";
+            HideDeletedStripMenuItem.Click += HideDeletedStripMenuItem_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -411,5 +432,8 @@
         private ToolStripMenuItem OptionsStripMenuItem;
         private ToolStripMenuItem DeleteWarningStripMenuItem;
         private ToolStripMenuItem CleanTempStripMenuItem;
+        private ColumnHeader FileExistColumnHeader;
+        private ToolStripMenuItem HideDeletedStripMenuItem;
+        private ToolStripSeparator toolStripSeparator4;
     }
 }

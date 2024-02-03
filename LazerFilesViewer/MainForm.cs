@@ -34,6 +34,7 @@ namespace LazerFilesViewer
 
         string DeleteWarning = "1";
         string CleanTemp = "1";
+        string HideDeleted = "-1";
 
         private RealmConfiguration GetConfiguration()
         {
@@ -147,16 +148,22 @@ namespace LazerFilesViewer
                 ListViewItem item = FileListView.Items.Add(subDirectory.Name, (int)FileListIcons.Folder);
                 item.Tag = subDirectory;
                 item.SubItems.Add("文件夹");
+                item.SubItems.Add("");
                 item.SubItems.Add(subDirectory.FullName);
                 item.SubItems.Add("");
             }
             foreach (FakeFile f in d.ChildFiles)
             {
-                ListViewItem item = FileListView.Items.Add(f.Name, (int)GetIconIndex(f.GetFileType()));
-                item.Tag = f;
-                item.SubItems.Add(f.GetFileType());
-                item.SubItems.Add(f.FullName);
-                item.SubItems.Add(f.GetFilePath());
+                bool isExists = File.Exists(LazerFilePath + f.GetFilePath());
+                if (HideDeleted != "1" || isExists)
+                {
+                    ListViewItem item = FileListView.Items.Add(f.Name, (int)GetIconIndex(f.GetFileType()));
+                    item.Tag = f;
+                    item.SubItems.Add(f.GetFileType());
+                    item.SubItems.Add(isExists ? "是" : "否");
+                    item.SubItems.Add(f.FullName);
+                    item.SubItems.Add(f.GetFilePath());
+                }
             }
             AddressToolStripComboBox.Text = d.FullName;
             if (!isHistory) historyControl.AddHistory(CurrentPage.Directory, d.FullName);
@@ -171,10 +178,12 @@ namespace LazerFilesViewer
             item.SubItems.Add("文件夹");
             item.SubItems.Add("");
             item.SubItems.Add("");
+            item.SubItems.Add("");
 
             item = FileListView.Items.Add("Skins", (int)FileListIcons.Folder);
             item.Tag = Skins;
             item.SubItems.Add("文件夹");
+            item.SubItems.Add("");
             item.SubItems.Add("");
             item.SubItems.Add("");
             AddressToolStripComboBox.Text = "\\";
@@ -256,6 +265,8 @@ namespace LazerFilesViewer
             DeleteWarningStripMenuItem.Checked = (DeleteWarning == "1") ? true : false;
             CleanTemp = ConfigurationManager.AppSettings["CleanTemp"] ?? CleanTemp;
             CleanTempStripMenuItem.Checked = (CleanTemp == "1") ? true : false;
+            HideDeleted = ConfigurationManager.AppSettings["HideDeleted"] ?? HideDeleted;
+            HideDeletedStripMenuItem.Checked = (HideDeleted == "1") ? true : false;
             if (CleanTemp == "1")
             {
                 try
@@ -549,22 +560,32 @@ namespace LazerFilesViewer
         }
 
 
-        private void Reload()
+        private void Reload(bool reloadDataBase = true)
         {
-            string nowpath = AddressToolStripComboBox.Text;
-            try
+            HistoryPoint hp = historyControl.GetCurrentHistoryPoint();
+            if (reloadDataBase)
             {
-                BuildDirectories();
-            }
-            catch (Exception ex)
-            {
-                DialogResult result = MessageBox.Show("读取数据库错误！\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (result == DialogResult.OK)
+                try
                 {
-                    Close();
+                    BuildDirectories();
+                }
+                catch (Exception ex)
+                {
+                    DialogResult result = MessageBox.Show("读取数据库错误！\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (result == DialogResult.OK)
+                    {
+                        Close();
+                    }
                 }
             }
-            OpenPath(nowpath);
+            if (hp.CurrentPage == CurrentPage.Search)
+            {
+                Search(hp.Content, true);
+            }
+            else if (hp.CurrentPage == CurrentPage.Directory)
+            {
+                OpenPath(hp.Content, true);
+            }
         }
 
         private void TSMI_File_Temp_Open_Click(object sender, EventArgs e)
@@ -705,7 +726,7 @@ namespace LazerFilesViewer
                 string sourcePath = LazerFilePath + ff.GetFilePath();
                 FileSystem.DeleteFile(sourcePath, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
             }
-            Reload();
+            Reload(false);
             Process p = new Process();
             p.StartInfo.FileName = "explorer.exe";
             p.StartInfo.Arguments = "shell:RecycleBinFolder";
@@ -783,7 +804,7 @@ namespace LazerFilesViewer
 
         private void ReloadToolStripButton_Click(object sender, EventArgs e)
         {
-            Reload();
+            Reload(true);
         }
 
         private void TSMI_Mix_EnableMulti_Copy_Click(object sender, EventArgs e)
@@ -884,16 +905,22 @@ namespace LazerFilesViewer
                 ListViewItem item = FileListView.Items.Add(dir.Name, (int)FileListIcons.Folder);
                 item.Tag = dir;
                 item.SubItems.Add("文件夹");
+                item.SubItems.Add("");
                 item.SubItems.Add(dir.FullName);
                 item.SubItems.Add("");
             }
             foreach (FakeFile f in files)
             {
-                ListViewItem item = FileListView.Items.Add(f.Name, (int)GetIconIndex(f.GetFileType()));
-                item.Tag = f;
-                item.SubItems.Add(f.GetFileType());
-                item.SubItems.Add(f.FullName);
-                item.SubItems.Add(f.GetFilePath());
+                bool isExists = File.Exists(LazerFilePath + f.GetFilePath());
+                if (HideDeleted != "1" || isExists)
+                {
+                    ListViewItem item = FileListView.Items.Add(f.Name, (int)GetIconIndex(f.GetFileType()));
+                    item.Tag = f;
+                    item.SubItems.Add(f.GetFileType());
+                    item.SubItems.Add(isExists ? "是" : "否");
+                    item.SubItems.Add(f.FullName);
+                    item.SubItems.Add(f.GetFilePath());
+                }
             }
             AddressToolStripComboBox.Text = "搜索结果";
             if (!isHistory) historyControl.AddHistory(CurrentPage.Search, searchText);
@@ -979,6 +1006,11 @@ namespace LazerFilesViewer
             OpenPath("");
         }
 
+        private void TSMI_Empty_Reload_Click(object sender, EventArgs e)
+        {
+            Reload(true);
+        }
+
         private void DeleteWarningStripMenuItem_Click(object sender, EventArgs e)
         {
             if (DeleteWarning == "1") DeleteWarning = "-1";
@@ -991,6 +1023,14 @@ namespace LazerFilesViewer
             if (CleanTemp == "1") CleanTemp = "-1";
             else CleanTemp = "1";
             AddUpdateAppSettings("CleanTemp", CleanTemp);
+        }
+
+        private void HideDeletedStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (HideDeleted == "1") HideDeleted = "-1";
+            else HideDeleted = "1";
+            AddUpdateAppSettings("HideDeleted", HideDeleted);
+            Reload(false);
         }
     }
 
@@ -1077,6 +1117,17 @@ namespace LazerFilesViewer
             if (CurrentIndex >= 0)
             {
                 return HistoryPoints[CurrentIndex].CurrentPage;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public HistoryPoint? GetCurrentHistoryPoint()
+        {
+            if (CurrentIndex >= 0)
+            {
+                return HistoryPoints[CurrentIndex];
             }
             else
             {
