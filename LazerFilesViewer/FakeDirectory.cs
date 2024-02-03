@@ -1,0 +1,116 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace LazerFilesViewer
+{
+    public class FakeDirectory
+    {
+        public string Name { get; set; }
+
+        public string FullName { get; set; }
+
+        public List<FakeDirectory> ChildDirectories { get; set; }
+        public List<FakeFile> ChildFiles { get; set; }
+        public FakeDirectory(string name, string preName)
+        {
+            Name = name;
+            FullName = preName + "\\" + name;
+            ChildDirectories = new List<FakeDirectory>();
+            ChildFiles = new List<FakeFile>();
+        }
+
+        public FakeDirectory? GetDirectory(string name)
+        {
+            while(name.StartsWith("\\"))
+            {
+                name = name.Substring(1);
+            }
+            while(name.EndsWith("\\"))
+            {
+                name = name.Substring(0, name.Length - 1);
+            }
+            int index = name.IndexOf("\\");
+            if (index > 0)
+            {
+                string folderName = name.Substring(0, index);
+                string leftName = name.Substring(index + 1);
+                FakeDirectory d = ChildDirectories.Find(x => x.Name == folderName);
+                if (d != null) { return d.GetDirectory(leftName); }
+                else return this;
+            }
+            return ChildDirectories.Find(x => x.Name == name);
+        }
+
+        public FakeFile? GetFile(string name)
+        {
+            while (name.StartsWith("\\"))
+            {
+                name = name.Substring(1);
+            }
+            while (name.EndsWith("\\"))
+            {
+                name = name.Substring(0, name.Length - 1);
+            }
+            return ChildFiles.Find(x => x.Name == name);
+        }
+
+        public FakeDirectory AddDirectory(string name)
+        {
+            FakeDirectory? d = GetDirectory(name);
+            if (d != null) return d;
+            d = new FakeDirectory(name, FullName);
+            ChildDirectories.Add(d);
+            return d;
+        }
+
+        public bool DeleteDirectory(string name)
+        {
+            FakeDirectory? d = GetDirectory(name);
+            if (d == null) return false;
+            ChildDirectories.Remove(d);
+            return true;
+        }
+
+        public FakeFile AddFile(string name, string hash)
+        {
+            while (name.StartsWith("/"))
+            {
+                name = name.Substring(1);
+            }
+            while (name.EndsWith("/"))
+            {
+                name = name.Substring(0, name.Length - 1);
+            }
+            int index = name.IndexOf("/");
+            if (index > 0)
+            {
+                string folderName = name.Substring(0, index);
+                string fileName = name.Substring(index + 1);
+                return AddDirectory(folderName).AddFile(fileName, hash);
+            }
+            else
+            {
+                FakeFile? f = GetFile(name);
+                if (f != null) return f;
+                f = new FakeFile(name, hash);
+                ChildFiles.Add(f);
+                return f;
+            }
+        }
+
+        public bool DeleteFile(string name)
+        {
+            FakeFile? f = GetFile(name);
+            if (f == null) return false;
+            ChildFiles.Remove(f);
+            return true;
+        }
+
+
+
+    }
+}
