@@ -948,7 +948,7 @@ namespace LazerFilesViewer
 
         private void TSMI_File_GoToFolder_Click(object sender, EventArgs e)
         {
-            string fullName = FileListView.SelectedItems[0].SubItems[2].Text;
+            string fullName = FileListView.SelectedItems[0].SubItems[3].Text;
             int index = fullName.LastIndexOf("\\");
             if (index > 0)
             {
