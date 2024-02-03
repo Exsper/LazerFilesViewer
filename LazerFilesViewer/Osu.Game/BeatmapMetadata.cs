@@ -2,7 +2,6 @@
 // See the LICENCE file in the repository root for full licence text.
 
 using osu.Game.Models;
-using osu.Game.Users;
 using Realms;
 
 namespace osu.Game.Beatmaps

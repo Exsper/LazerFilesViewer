@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
-namespace LazerFilesViewer
+﻿namespace LazerFilesViewer
 {
     public class FakeDirectory
     {
@@ -29,11 +21,11 @@ namespace LazerFilesViewer
 
         public FakeDirectory? GetDirectory(string name)
         {
-            while(name.StartsWith("\\"))
+            while (name.StartsWith("\\"))
             {
                 name = name.Substring(1);
             }
-            while(name.EndsWith("\\"))
+            while (name.EndsWith("\\"))
             {
                 name = name.Substring(0, name.Length - 1);
             }
@@ -131,14 +123,14 @@ namespace LazerFilesViewer
 
         public List<FakeFile> SearchFiles(string keyWord)
         {
-            List<FakeFile> files = new List<FakeFile> ();
+            List<FakeFile> files = new List<FakeFile>();
             if (ChildFiles.Count > 0) files = ChildFiles.FindAll(file => (file.Name.Contains(keyWord, StringComparison.OrdinalIgnoreCase)));
             if (ChildDirectories.Count > 0)
             {
                 foreach (FakeDirectory dir in ChildDirectories)
                 {
                     List<FakeFile> subfiles = dir.SearchFiles(keyWord);
-                    if(subfiles != null && subfiles.Count > 0)
+                    if (subfiles != null && subfiles.Count > 0)
                     {
                         files.AddRange(subfiles);
                     }

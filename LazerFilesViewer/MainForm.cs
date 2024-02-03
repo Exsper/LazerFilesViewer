@@ -3,13 +3,8 @@ using osu.Game.Beatmaps;
 using osu.Game.Skinning;
 using Realms;
 using System.Collections;
-using System.Diagnostics;
-using System.IO;
-using System.Runtime;
-using System.Security.Policy;
-using System.Windows.Forms;
-using System.Xml.Linq;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace LazerFilesViewer
 {
@@ -735,7 +730,7 @@ namespace LazerFilesViewer
                 p.StartInfo.Arguments = "shell:RecycleBinFolder";
                 p.Start();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("É¾³ýÎÄ¼þÊ§°Ü\r\n" + ex, "´íÎó", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

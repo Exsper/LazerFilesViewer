@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LazerFilesViewer
+﻿namespace LazerFilesViewer
 {
     public class FakeFile
     {
         public string Name { get; set; }
         public string FullName { get; set; }
         public string Hash { get; set; }
-        public FakeFile(string name, string hash, string preName) {
+        public FakeFile(string name, string hash, string preName)
+        {
             Name = name;
             Hash = hash;
             FullName = preName + "\\" + name;
@@ -25,7 +20,7 @@ namespace LazerFilesViewer
 
         public string GetFilePath()
         {
-            return Hash.Substring(0,1) + "\\" + Hash.Substring(0,2) + "\\" + Hash;
+            return Hash.Substring(0, 1) + "\\" + Hash.Substring(0, 2) + "\\" + Hash;
         }
     }
 }
