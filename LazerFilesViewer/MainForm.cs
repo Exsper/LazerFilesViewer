@@ -9,6 +9,7 @@ using System.Runtime;
 using System.Security.Policy;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using System.Configuration;
 
 namespace LazerFilesViewer
 {
@@ -30,6 +31,9 @@ namespace LazerFilesViewer
         ListViewItemComparer listViewItemComparer = new ListViewItemComparer();
 
         HistoryControl historyControl = new HistoryControl();
+
+        string DeleteWarning = "1";
+        string CleanTemp = "1";
 
         private RealmConfiguration GetConfiguration()
         {
@@ -77,6 +81,32 @@ namespace LazerFilesViewer
                 }
             }
             r.Dispose();
+            AddUpdateAppSettings("LazerPath", LazerPath);
+            AddUpdateAppSettings("LazerFilePath", LazerFilePath);
+            AddUpdateAppSettings("DataBasePath", DataBasePath);
+        }
+
+        static void AddUpdateAppSettings(string key, string value)
+        {
+            try
+            {
+                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                var settings = configFile.AppSettings.Settings;
+                if (settings[key] == null)
+                {
+                    settings.Add(key, value);
+                }
+                else
+                {
+                    settings[key].Value = value;
+                }
+                configFile.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+            }
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine("Error writing app settings");
+            }
         }
 
         private enum FileListIcons
@@ -204,8 +234,48 @@ namespace LazerFilesViewer
             InitializeComponent();
         }
 
+
+        static void DeleteFolder(string path)
+        {
+            foreach (string file in Directory.GetFiles(path))
+            {
+                File.Delete(file);
+            }
+
+            foreach (string dir in Directory.GetDirectories(path))
+            {
+                DeleteFolder(dir);
+            }
+
+            Directory.Delete(path);
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
+            DeleteWarning = ConfigurationManager.AppSettings["DeleteWarning"] ?? DeleteWarning;
+            DeleteWarningStripMenuItem.Checked = (DeleteWarning == "1") ? true : false;
+            CleanTemp = ConfigurationManager.AppSettings["CleanTemp"] ?? CleanTemp;
+            CleanTempStripMenuItem.Checked = (CleanTemp == "1") ? true : false;
+            if (CleanTemp == "1")
+            {
+                try
+                {
+                    if (Directory.Exists(TempFolder))
+                    {
+                        DeleteFolder(TempFolder);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("清空临时文件夹失败。\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+
+
+            DataBasePath = ConfigurationManager.AppSettings["DataBasePath"] ?? DataBasePath;
+            LazerPath = ConfigurationManager.AppSettings["LazerPath"] ?? LazerPath;
+            LazerFilePath = ConfigurationManager.AppSettings["LazerFilePath"] ?? LazerFilePath;
             if (!File.Exists(DataBasePath))
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -628,21 +698,33 @@ namespace LazerFilesViewer
             }
         }
 
+        private void DeleteSelected()
+        {
+            foreach (FakeFile ff in SelectedItemsList.FakeFiles)
+            {
+                string sourcePath = LazerFilePath + ff.GetFilePath();
+                FileSystem.DeleteFile(sourcePath, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+            }
+            Reload();
+            Process p = new Process();
+            p.StartInfo.FileName = "explorer.exe";
+            p.StartInfo.Arguments = "shell:RecycleBinFolder";
+            p.Start();
+        }
+
         private void TSMI_File_EnableMulti_Delete_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("删除存储文件可能会造成数据库损坏或Lazer程序异常，请小心使用！\r\n该操作会影响到所有使用该文件的谱面、皮肤等！", "警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-            if (result == DialogResult.OK)
+            if (DeleteWarning == "1")
             {
-                foreach (FakeFile ff in SelectedItemsList.FakeFiles)
+                DialogResult result = MessageBox.Show("删除存储文件可能会造成数据库损坏或Lazer程序异常，请小心使用！\r\n该操作会影响到所有使用该文件的谱面、皮肤等！", "警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.OK)
                 {
-                    string sourcePath = LazerFilePath + ff.GetFilePath();
-                    FileSystem.DeleteFile(sourcePath, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
+                    DeleteSelected();
                 }
-                Reload();
-                Process p = new Process();
-                p.StartInfo.FileName = "explorer.exe";
-                p.StartInfo.Arguments = "shell:RecycleBinFolder";
-                p.Start();
+            }
+            else
+            {
+                DeleteSelected();
             }
         }
 
@@ -845,7 +927,7 @@ namespace LazerFilesViewer
                 string folderPath = fullName.Substring(0, index);
                 string fileName = fullName.Substring(index + 1);
                 OpenPath(folderPath);
-                foreach(ListViewItem item in FileListView.Items)
+                foreach (ListViewItem item in FileListView.Items)
                 {
                     if (item.SubItems[0].Text == fileName)
                     {
@@ -859,6 +941,56 @@ namespace LazerFilesViewer
             {
                 OpenPath("");
             }
+        }
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void SetDatabasePathToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Realm数据库 (*.realm)|*.realm";
+            openFileDialog.Title = "选择Lazer数据库文件";
+            openFileDialog.Multiselect = false;
+            openFileDialog.CheckFileExists = true;
+            openFileDialog.CheckPathExists = true;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                DataBasePath = openFileDialog.FileName;
+                LazerPath = DataBasePath.Substring(0, DataBasePath.LastIndexOf("\\" + 1));
+                LazerFilePath = LazerPath + @"files\";
+            }
+
+            try
+            {
+                BuildDirectories();
+            }
+            catch (Exception ex)
+            {
+                DialogResult result = MessageBox.Show("读取数据库错误！\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (result == DialogResult.OK)
+                {
+                    Close();
+                }
+            }
+
+            OpenPath("");
+        }
+
+        private void DeleteWarningStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (DeleteWarning == "1") DeleteWarning = "-1";
+            else DeleteWarning = "1";
+            AddUpdateAppSettings("DeleteWarning", DeleteWarning);
+        }
+
+        private void CleanTempStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (CleanTemp == "1") CleanTemp = "-1";
+            else CleanTemp = "1";
+            AddUpdateAppSettings("CleanTemp", CleanTemp);
         }
     }
 
@@ -981,4 +1113,5 @@ namespace LazerFilesViewer
             return (CurrentIndex < HistoryPoints.Count - 1);
         }
     }
+
 }

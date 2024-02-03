@@ -31,6 +31,13 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             MainMenuStrip = new MenuStrip();
+            FileToolStripMenuItem = new ToolStripMenuItem();
+            SetDatabasePathToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator3 = new ToolStripSeparator();
+            ExitToolStripMenuItem = new ToolStripMenuItem();
+            OptionsStripMenuItem = new ToolStripMenuItem();
+            DeleteWarningStripMenuItem = new ToolStripMenuItem();
+            CleanTempStripMenuItem = new ToolStripMenuItem();
             FileListView = new ListView();
             NameColumnHeader = new ColumnHeader();
             TypeColumnHeader = new ColumnHeader();
@@ -59,17 +66,72 @@
             AddressToolStripComboBox = new ToolStripComboBox();
             toolStripSeparator2 = new ToolStripSeparator();
             SearchToolStripComboBox = new ToolStripComboBox();
+            MainMenuStrip.SuspendLayout();
             ViewerContextMenuStrip.SuspendLayout();
             MainToolStrip.SuspendLayout();
             SuspendLayout();
             // 
             // MainMenuStrip
             // 
+            MainMenuStrip.Items.AddRange(new ToolStripItem[] { FileToolStripMenuItem, OptionsStripMenuItem });
             MainMenuStrip.Location = new Point(0, 0);
             MainMenuStrip.Name = "MainMenuStrip";
-            MainMenuStrip.Size = new Size(800, 24);
+            MainMenuStrip.Size = new Size(800, 25);
             MainMenuStrip.TabIndex = 0;
             MainMenuStrip.Text = "menuStrip1";
+            // 
+            // FileToolStripMenuItem
+            // 
+            FileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SetDatabasePathToolStripMenuItem, toolStripSeparator3, ExitToolStripMenuItem });
+            FileToolStripMenuItem.Name = "FileToolStripMenuItem";
+            FileToolStripMenuItem.Size = new Size(58, 21);
+            FileToolStripMenuItem.Text = "文件(&F)";
+            // 
+            // SetDatabasePathToolStripMenuItem
+            // 
+            SetDatabasePathToolStripMenuItem.Name = "SetDatabasePathToolStripMenuItem";
+            SetDatabasePathToolStripMenuItem.Size = new Size(175, 22);
+            SetDatabasePathToolStripMenuItem.Text = "重新选择数据库(&S)";
+            SetDatabasePathToolStripMenuItem.Click += SetDatabasePathToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(172, 6);
+            // 
+            // ExitToolStripMenuItem
+            // 
+            ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
+            ExitToolStripMenuItem.Size = new Size(175, 22);
+            ExitToolStripMenuItem.Text = "退出(&X)";
+            ExitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
+            // 
+            // OptionsStripMenuItem
+            // 
+            OptionsStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { DeleteWarningStripMenuItem, CleanTempStripMenuItem });
+            OptionsStripMenuItem.Name = "OptionsStripMenuItem";
+            OptionsStripMenuItem.Size = new Size(62, 21);
+            OptionsStripMenuItem.Text = "选项(&O)";
+            // 
+            // DeleteWarningStripMenuItem
+            // 
+            DeleteWarningStripMenuItem.Checked = true;
+            DeleteWarningStripMenuItem.CheckOnClick = true;
+            DeleteWarningStripMenuItem.CheckState = CheckState.Checked;
+            DeleteWarningStripMenuItem.Name = "DeleteWarningStripMenuItem";
+            DeleteWarningStripMenuItem.Size = new Size(212, 22);
+            DeleteWarningStripMenuItem.Text = "删除时提醒(&D)";
+            DeleteWarningStripMenuItem.Click += DeleteWarningStripMenuItem_Click;
+            // 
+            // CleanTempStripMenuItem
+            // 
+            CleanTempStripMenuItem.Checked = true;
+            CleanTempStripMenuItem.CheckOnClick = true;
+            CleanTempStripMenuItem.CheckState = CheckState.Checked;
+            CleanTempStripMenuItem.Name = "CleanTempStripMenuItem";
+            CleanTempStripMenuItem.Size = new Size(212, 22);
+            CleanTempStripMenuItem.Text = "启动时清空临时文件夹(&C)";
+            CleanTempStripMenuItem.Click += CleanTempStripMenuItem_Click;
             // 
             // FileListView
             // 
@@ -220,7 +282,7 @@
             // MainToolStrip
             // 
             MainToolStrip.Items.AddRange(new ToolStripItem[] { BackToolStripButton, AdvanceToolStripButton, UpToolStripButton, ReloadToolStripButton, toolStripSeparator1, AddressToolStripComboBox, toolStripSeparator2, SearchToolStripComboBox });
-            MainToolStrip.Location = new Point(0, 24);
+            MainToolStrip.Location = new Point(0, 25);
             MainToolStrip.Name = "MainToolStrip";
             MainToolStrip.Size = new Size(800, 25);
             MainToolStrip.TabIndex = 3;
@@ -302,6 +364,8 @@
             Name = "MainForm";
             Text = "Lazer文件浏览器";
             Load += MainForm_Load;
+            MainMenuStrip.ResumeLayout(false);
+            MainMenuStrip.PerformLayout();
             ViewerContextMenuStrip.ResumeLayout(false);
             MainToolStrip.ResumeLayout(false);
             MainToolStrip.PerformLayout();
@@ -340,5 +404,12 @@
         private ColumnHeader GamePathColumnHeader;
         private ColumnHeader FilePathColumnHeader;
         private ToolStripMenuItem TSMI_File_GoToFolder;
+        private ToolStripMenuItem FileToolStripMenuItem;
+        private ToolStripMenuItem ExitToolStripMenuItem;
+        private ToolStripMenuItem SetDatabasePathToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripMenuItem OptionsStripMenuItem;
+        private ToolStripMenuItem DeleteWarningStripMenuItem;
+        private ToolStripMenuItem CleanTempStripMenuItem;
     }
 }
