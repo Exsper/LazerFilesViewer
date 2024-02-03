@@ -1,5 +1,6 @@
 using Microsoft.VisualBasic.FileIO;
 using osu.Game.Beatmaps;
+using osu.Game.Skinning;
 using Realms;
 using System.Collections;
 using System.Diagnostics;
@@ -22,6 +23,7 @@ namespace LazerFilesViewer
         private string DataBasePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\osu\client.realm";
 
         private FakeDirectory Songs = new FakeDirectory("Songs", "\\");
+        private FakeDirectory Skins = new FakeDirectory("Skins", "\\");
 
         SelectedItemsList SelectedItemsList;
 
@@ -43,11 +45,21 @@ namespace LazerFilesViewer
         private void BuildDirectories()
         {
             Realm r = Realm.GetInstance(GetConfiguration());
-            var allItems = r.All<BeatmapSetInfo>();
-            foreach (var item in allItems)
+            var allBeatmaps = r.All<BeatmapSetInfo>();
+            foreach (var item in allBeatmaps)
             {
                 string title = (item.Beatmaps.Count > 0) ? item.OnlineID + " " + item.Beatmaps.First().Metadata.ArtistUnicode + " - " + item.Beatmaps.First().Metadata.TitleUnicode : item.Hash;
                 FakeDirectory d = Songs.AddDirectory(title);
+                foreach (var file in item.Files)
+                {
+                    d.AddFile(file.Filename, file.File.Hash);
+                }
+            }
+            var allSkins = r.All<SkinInfo>();
+            foreach (var item in allSkins)
+            {
+                string title = item.ToString();
+                FakeDirectory d = Skins.AddDirectory(title);
                 foreach (var file in item.Files)
                 {
                     d.AddFile(file.Filename, file.File.Hash);
@@ -115,6 +127,11 @@ namespace LazerFilesViewer
             item.Tag = Songs;
             item.SubItems.Add("文件夹");
             item.SubItems.Add("");
+
+            item = FileListView.Items.Add("Skins", (int)FileListIcons.Folder);
+            item.Tag = Skins;
+            item.SubItems.Add("文件夹");
+            item.SubItems.Add("");
             AddressToolStripComboBox.Text = "\\";
             if (!isHistory) historyControl.AddHistory(CurrentPage.Directory, "\\");
             CheckButtonEnable();
@@ -145,10 +162,19 @@ namespace LazerFilesViewer
                 ShowCurrentDirectory(Songs, isHistory);
                 return true;
             }
-            FakeDirectory d = Songs;
+            if (path == "Skins")
+            {
+                ShowCurrentDirectory(Skins, isHistory);
+                return true;
+            }
+            FakeDirectory d = null;
             if (path.StartsWith("Songs\\"))
             {
                 d = Songs.GetDirectory(path.Substring(6));
+            }
+            if (path.StartsWith("Skins\\"))
+            {
+                d = Skins.GetDirectory(path.Substring(6));
             }
             if (d != null)
             {
