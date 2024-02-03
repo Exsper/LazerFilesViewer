@@ -9,10 +9,12 @@ namespace LazerFilesViewer
     public class FakeFile
     {
         public string Name { get; set; }
+        public string FullName { get; set; }
         public string Hash { get; set; }
-        public FakeFile(string name, string hash) {
+        public FakeFile(string name, string hash, string preName) {
             Name = name;
             Hash = hash;
+            FullName = preName + "\\" + name;
         }
 
         public string GetFileType()

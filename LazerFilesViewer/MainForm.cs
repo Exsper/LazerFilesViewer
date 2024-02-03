@@ -48,8 +48,19 @@ namespace LazerFilesViewer
             var allBeatmaps = r.All<BeatmapSetInfo>();
             foreach (var item in allBeatmaps)
             {
-                string title = (item.Beatmaps.Count > 0) ? item.OnlineID + " " + item.Beatmaps.First().Metadata.ArtistUnicode + " - " + item.Beatmaps.First().Metadata.TitleUnicode : item.Hash;
-                FakeDirectory d = Songs.AddDirectory(title);
+                string title;
+                FakeDirectory d;
+                if (item.Beatmaps.Count > 0)
+                {
+                    BeatmapMetadata bm = item.Beatmaps.First().Metadata;
+                    title = item.OnlineID + " " + bm.ArtistUnicode + " - " + bm.TitleUnicode;
+                    d = Songs.AddDirectory(title, bm.Artist + " " + bm.Title + " " + bm.Author.Username + " " + bm.Tags);
+                }
+                else
+                {
+                    title = item.Hash;
+                    d = Songs.AddDirectory(title);
+                }
                 foreach (var file in item.Files)
                 {
                     d.AddFile(file.Filename, file.File.Hash);
@@ -106,6 +117,7 @@ namespace LazerFilesViewer
                 ListViewItem item = FileListView.Items.Add(subDirectory.Name, (int)FileListIcons.Folder);
                 item.Tag = subDirectory;
                 item.SubItems.Add("文件夹");
+                item.SubItems.Add(subDirectory.FullName);
                 item.SubItems.Add("");
             }
             foreach (FakeFile f in d.ChildFiles)
@@ -113,7 +125,8 @@ namespace LazerFilesViewer
                 ListViewItem item = FileListView.Items.Add(f.Name, (int)GetIconIndex(f.GetFileType()));
                 item.Tag = f;
                 item.SubItems.Add(f.GetFileType());
-                item.SubItems.Add(f.Hash);
+                item.SubItems.Add(f.FullName);
+                item.SubItems.Add(f.GetFilePath());
             }
             AddressToolStripComboBox.Text = d.FullName;
             if (!isHistory) historyControl.AddHistory(CurrentPage.Directory, d.FullName);
@@ -127,10 +140,12 @@ namespace LazerFilesViewer
             item.Tag = Songs;
             item.SubItems.Add("文件夹");
             item.SubItems.Add("");
+            item.SubItems.Add("");
 
             item = FileListView.Items.Add("Skins", (int)FileListIcons.Folder);
             item.Tag = Skins;
             item.SubItems.Add("文件夹");
+            item.SubItems.Add("");
             item.SubItems.Add("");
             AddressToolStripComboBox.Text = "\\";
             if (!isHistory) historyControl.AddHistory(CurrentPage.Directory, "\\");
@@ -403,6 +418,14 @@ namespace LazerFilesViewer
             }
             else
             {
+                if (FileListView.SelectedItems.Count == 1 && historyControl.GetCurrentPageType() == CurrentPage.Search)
+                {
+                    TSMI_File_GoToFolder.Visible = true;
+                }
+                else
+                {
+                    TSMI_File_GoToFolder.Visible = false;
+                }
                 List<FakeDirectory> fakeDirectories = new List<FakeDirectory>();
                 List<FakeFile> fakeFiles = new List<FakeFile>();
                 foreach (ListViewItem item in FileListView.SelectedItems)
@@ -747,6 +770,10 @@ namespace LazerFilesViewer
             {
                 OpenPath(historyPoint.Content, true);
             }
+            else if (historyPoint.CurrentPage == CurrentPage.Search)
+            {
+                Search(historyPoint.Content, true);
+            }
         }
 
         private void AdvanceToolStripButton_Click(object sender, EventArgs e)
@@ -755,6 +782,82 @@ namespace LazerFilesViewer
             if (historyPoint.CurrentPage == CurrentPage.Directory)
             {
                 OpenPath(historyPoint.Content, true);
+            }
+            else if (historyPoint.CurrentPage == CurrentPage.Search)
+            {
+                Search(historyPoint.Content, true);
+            }
+        }
+
+        private void Search(string searchText, bool isHistory = false)
+        {
+            List<FakeDirectory> dirs = Songs.SearchDirectories(searchText);
+            dirs.AddRange(Skins.SearchDirectories(searchText));
+            List<FakeFile> files = Songs.SearchFiles(searchText);
+            files.AddRange(Skins.SearchFiles(searchText));
+
+            FileListView.Items.Clear();
+            foreach (FakeDirectory dir in dirs)
+            {
+                ListViewItem item = FileListView.Items.Add(dir.Name, (int)FileListIcons.Folder);
+                item.Tag = dir;
+                item.SubItems.Add("文件夹");
+                item.SubItems.Add(dir.FullName);
+                item.SubItems.Add("");
+            }
+            foreach (FakeFile f in files)
+            {
+                ListViewItem item = FileListView.Items.Add(f.Name, (int)GetIconIndex(f.GetFileType()));
+                item.Tag = f;
+                item.SubItems.Add(f.GetFileType());
+                item.SubItems.Add(f.FullName);
+                item.SubItems.Add(f.GetFilePath());
+            }
+            AddressToolStripComboBox.Text = "搜索结果";
+            if (!isHistory) historyControl.AddHistory(CurrentPage.Search, searchText);
+            CheckButtonEnable();
+        }
+
+        private void SearchToolStripComboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (SearchToolStripComboBox.Text != "") Search(SearchToolStripComboBox.Text);
+            }
+        }
+
+        private void SearchToolStripComboBox_Enter(object sender, EventArgs e)
+        {
+            SearchToolStripComboBox.Text = "";
+        }
+
+        private void SearchToolStripComboBox_Leave(object sender, EventArgs e)
+        {
+            SearchToolStripComboBox.Text = "搜索谱面、皮肤和后缀名";
+        }
+
+        private void TSMI_File_GoToFolder_Click(object sender, EventArgs e)
+        {
+            string fullName = FileListView.SelectedItems[0].SubItems[2].Text;
+            int index = fullName.LastIndexOf("\\");
+            if (index > 0)
+            {
+                string folderPath = fullName.Substring(0, index);
+                string fileName = fullName.Substring(index + 1);
+                OpenPath(folderPath);
+                foreach(ListViewItem item in FileListView.Items)
+                {
+                    if (item.SubItems[0].Text == fileName)
+                    {
+                        item.Selected = true;
+                        item.EnsureVisible();
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                OpenPath("");
             }
         }
     }
@@ -784,16 +887,23 @@ namespace LazerFilesViewer
         }
         public int Compare(object x, object y)
         {
-            int result = String.Compare(((ListViewItem)x).SubItems[Col].Text, ((ListViewItem)y).SubItems[Col].Text);
-            if (Order == SortOrder.Ascending)
+            try
             {
-                return result;
+                int result = String.Compare(((ListViewItem)x).SubItems[Col].Text, ((ListViewItem)y).SubItems[Col].Text);
+                if (Order == SortOrder.Ascending)
+                {
+                    return result;
+                }
+                else if (Order == SortOrder.Descending)
+                {
+                    return (-result);
+                }
+                else
+                {
+                    return 0;
+                }
             }
-            else if (Order == SortOrder.Descending)
-            {
-                return (-result);
-            }
-            else
+            catch
             {
                 return 0;
             }
@@ -829,6 +939,17 @@ namespace LazerFilesViewer
         {
             if (CurrentIndex < 0) return;
             HistoryPoints = HistoryPoints.GetRange(0, CurrentIndex + 1);
+        }
+        public CurrentPage? GetCurrentPageType()
+        {
+            if (CurrentIndex >= 0)
+            {
+                return HistoryPoints[CurrentIndex].CurrentPage;
+            }
+            else
+            {
+                return null;
+            }
         }
         public void AddHistory(CurrentPage currentPage, string content)
         {

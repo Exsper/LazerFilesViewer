@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -13,14 +14,17 @@ namespace LazerFilesViewer
 
         public string FullName { get; set; }
 
+        public string KeyWords { get; set; }
+
         public List<FakeDirectory> ChildDirectories { get; set; }
         public List<FakeFile> ChildFiles { get; set; }
-        public FakeDirectory(string name, string preName)
+        public FakeDirectory(string name, string preName, string keyWords = "")
         {
             Name = name;
             FullName = preName + "\\" + name;
             ChildDirectories = new List<FakeDirectory>();
             ChildFiles = new List<FakeFile>();
+            KeyWords = keyWords;
         }
 
         public FakeDirectory? GetDirectory(string name)
@@ -58,11 +62,11 @@ namespace LazerFilesViewer
             return ChildFiles.Find(x => x.Name == name);
         }
 
-        public FakeDirectory AddDirectory(string name)
+        public FakeDirectory AddDirectory(string name, string keyWords = "")
         {
             FakeDirectory? d = GetDirectory(name);
             if (d != null) return d;
-            d = new FakeDirectory(name, FullName);
+            d = new FakeDirectory(name, FullName, keyWords);
             ChildDirectories.Add(d);
             return d;
         }
@@ -96,7 +100,7 @@ namespace LazerFilesViewer
             {
                 FakeFile? f = GetFile(name);
                 if (f != null) return f;
-                f = new FakeFile(name, hash);
+                f = new FakeFile(name, hash, FullName);
                 ChildFiles.Add(f);
                 return f;
             }
@@ -110,7 +114,37 @@ namespace LazerFilesViewer
             return true;
         }
 
+        public List<FakeDirectory> SearchDirectories(string keyWord)
+        {
+            if (ChildDirectories.Count <= 0) return new List<FakeDirectory>();
+            List<FakeDirectory> dirs = ChildDirectories.FindAll(dir => (dir.Name.Contains(keyWord, StringComparison.OrdinalIgnoreCase)) || (dir.KeyWords.Contains(keyWord, StringComparison.OrdinalIgnoreCase)));
+            foreach (FakeDirectory dir in ChildDirectories)
+            {
+                List<FakeDirectory> subdirs = dir.SearchDirectories(keyWord);
+                if (subdirs != null && subdirs.Count > 0)
+                {
+                    dirs.AddRange(subdirs);
+                }
+            }
+            return dirs;
+        }
 
-
+        public List<FakeFile> SearchFiles(string keyWord)
+        {
+            List<FakeFile> files = new List<FakeFile> ();
+            if (ChildFiles.Count > 0) files = ChildFiles.FindAll(file => (file.Name.Contains(keyWord, StringComparison.OrdinalIgnoreCase)));
+            if (ChildDirectories.Count > 0)
+            {
+                foreach (FakeDirectory dir in ChildDirectories)
+                {
+                    List<FakeFile> subfiles = dir.SearchFiles(keyWord);
+                    if(subfiles != null && subfiles.Count > 0)
+                    {
+                        files.AddRange(subfiles);
+                    }
+                }
+            }
+            return files;
+        }
     }
 }

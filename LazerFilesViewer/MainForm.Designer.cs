@@ -34,9 +34,11 @@
             FileListView = new ListView();
             NameColumnHeader = new ColumnHeader();
             TypeColumnHeader = new ColumnHeader();
-            HashColumnHeader = new ColumnHeader();
+            GamePathColumnHeader = new ColumnHeader();
+            FilePathColumnHeader = new ColumnHeader();
             ViewerContextMenuStrip = new ContextMenuStrip(components);
             TSMI_File_Temp_Open = new ToolStripMenuItem();
+            TSMI_File_GoToFolder = new ToolStripMenuItem();
             TSMI_File_Open_Txt = new ToolStripMenuItem();
             TSMI_File_Temp_Shell = new ToolStripMenuItem();
             TSMI_File_EnableMulti_Copy = new ToolStripMenuItem();
@@ -72,7 +74,7 @@
             // FileListView
             // 
             FileListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            FileListView.Columns.AddRange(new ColumnHeader[] { NameColumnHeader, TypeColumnHeader, HashColumnHeader });
+            FileListView.Columns.AddRange(new ColumnHeader[] { NameColumnHeader, TypeColumnHeader, GamePathColumnHeader, FilePathColumnHeader });
             FileListView.ContextMenuStrip = ViewerContextMenuStrip;
             FileListView.Location = new Point(0, 52);
             FileListView.Name = "FileListView";
@@ -87,23 +89,27 @@
             // NameColumnHeader
             // 
             NameColumnHeader.Text = "名称";
-            NameColumnHeader.Width = 360;
+            NameColumnHeader.Width = 160;
             // 
             // TypeColumnHeader
             // 
             TypeColumnHeader.Text = "类型";
-            TypeColumnHeader.Width = 100;
             // 
-            // HashColumnHeader
+            // GamePathColumnHeader
             // 
-            HashColumnHeader.Text = "哈希值";
-            HashColumnHeader.Width = 260;
+            GamePathColumnHeader.Text = "文件路径";
+            GamePathColumnHeader.Width = 260;
+            // 
+            // FilePathColumnHeader
+            // 
+            FilePathColumnHeader.Text = "存储路径";
+            FilePathColumnHeader.Width = 260;
             // 
             // ViewerContextMenuStrip
             // 
-            ViewerContextMenuStrip.Items.AddRange(new ToolStripItem[] { TSMI_File_Temp_Open, TSMI_File_Open_Txt, TSMI_File_Temp_Shell, TSMI_File_EnableMulti_Copy, TSMI_File_Shell, TSMI_File_OpenFolder, TSMI_File_EnableMulti_Delete, TSMI_Folder_Open, TSMI_Folder_EnableMulti_Copy, TSMI_Mix_EnableMulti_Copy, TSMI_Empty_Reload });
+            ViewerContextMenuStrip.Items.AddRange(new ToolStripItem[] { TSMI_File_Temp_Open, TSMI_File_GoToFolder, TSMI_File_Open_Txt, TSMI_File_Temp_Shell, TSMI_File_EnableMulti_Copy, TSMI_File_Shell, TSMI_File_OpenFolder, TSMI_File_EnableMulti_Delete, TSMI_Folder_Open, TSMI_Folder_EnableMulti_Copy, TSMI_Mix_EnableMulti_Copy, TSMI_Empty_Reload });
             ViewerContextMenuStrip.Name = "ViewerContextMenuStrip";
-            ViewerContextMenuStrip.Size = new Size(221, 246);
+            ViewerContextMenuStrip.Size = new Size(221, 268);
             ViewerContextMenuStrip.Opening += ViewerContextMenuStrip_Opening;
             // 
             // TSMI_File_Temp_Open
@@ -113,6 +119,13 @@
             TSMI_File_Temp_Open.Text = "打开";
             TSMI_File_Temp_Open.ToolTipText = "将存储文件以真正文件名复制到临时文件夹并使用默认程序打开";
             TSMI_File_Temp_Open.Click += TSMI_File_Temp_Open_Click;
+            // 
+            // TSMI_File_GoToFolder
+            // 
+            TSMI_File_GoToFolder.Name = "TSMI_File_GoToFolder";
+            TSMI_File_GoToFolder.Size = new Size(220, 22);
+            TSMI_File_GoToFolder.Text = "转到文件所在位置";
+            TSMI_File_GoToFolder.Click += TSMI_File_GoToFolder_Click;
             // 
             // TSMI_File_Open_Txt
             // 
@@ -272,8 +285,11 @@
             // SearchToolStripComboBox
             // 
             SearchToolStripComboBox.Name = "SearchToolStripComboBox";
-            SearchToolStripComboBox.Size = new Size(121, 25);
-            SearchToolStripComboBox.Text = "搜索功能暂未实装";
+            SearchToolStripComboBox.Size = new Size(160, 25);
+            SearchToolStripComboBox.Text = "搜索谱面、皮肤和后缀名";
+            SearchToolStripComboBox.Enter += SearchToolStripComboBox_Enter;
+            SearchToolStripComboBox.Leave += SearchToolStripComboBox_Leave;
+            SearchToolStripComboBox.KeyDown += SearchToolStripComboBox_KeyDown;
             // 
             // MainForm
             // 
@@ -299,7 +315,6 @@
         private ListView FileListView;
         private ColumnHeader NameColumnHeader;
         private ColumnHeader TypeColumnHeader;
-        private ColumnHeader HashColumnHeader;
         private ToolStrip MainToolStrip;
         private ToolStripButton BackToolStripButton;
         private ToolStripButton AdvanceToolStripButton;
@@ -322,5 +337,8 @@
         private ToolStripMenuItem TSMI_Empty_Reload;
         private ToolStripMenuItem TSMI_File_OpenFolder;
         private ImageList IconImageList;
+        private ColumnHeader GamePathColumnHeader;
+        private ColumnHeader FilePathColumnHeader;
+        private ToolStripMenuItem TSMI_File_GoToFolder;
     }
 }
