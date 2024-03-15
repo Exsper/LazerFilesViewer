@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button_Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Button_Forward" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="Button_Reload" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="Button_Up" xml:space="preserve">
+    <value>Up</value>
+  </data>
+  <data name="ColumnHeader_FileExist" xml:space="preserve">
+    <value>Exist</value>
+  </data>
+  <data name="ColumnHeader_FilePath" xml:space="preserve">
+    <value>Stored File Path</value>
+  </data>
+  <data name="ColumnHeader_GamePath" xml:space="preserve">
+    <value>In Game Path</value>
+  </data>
+  <data name="ColumnHeader_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ColumnHeader_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="FileFolder_Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="FileFolder_Export_ToolTipText" xml:space="preserve">
+    <value>Copy the selected stored folders and files to aim folder with their in-game filenames.</value>
+  </data>
+  <data name="File_Delete" xml:space="preserve">
+    <value>Delete Stored File</value>
+  </data>
+  <data name="File_Delete_ToolTipText" xml:space="preserve">
+    <value>Move the selected stored files to recycle bin.
+
+May cause database corruption or Lazer exceptions, please use with caution!</value>
+  </data>
+  <data name="File_Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="File_Export_ToolTipText" xml:space="preserve">
+    <value>Copy the selected stored file to aim folder with its in-game filename.</value>
+  </data>
+  <data name="File_GoToFolder" xml:space="preserve">
+    <value>Jump to File Location</value>
+  </data>
+  <data name="File_OpenFolder" xml:space="preserve">
+    <value>Open Stored File Location</value>
+  </data>
+  <data name="File_Open_Txt" xml:space="preserve">
+    <value>Open with Notepad</value>
+  </data>
+  <data name="File_Open_Txt_ToolTipText" xml:space="preserve">
+    <value>Open stored file with notepad.</value>
+  </data>
+  <data name="File_Shell" xml:space="preserve">
+    <value>Call Stored File Right-Click Menu</value>
+  </data>
+  <data name="File_Shell_ToolTipText" xml:space="preserve">
+    <value>Call the selected stored file's right-click menu.</value>
+  </data>
+  <data name="File_Temp_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="File_Temp_Open_ToolTipText" xml:space="preserve">
+    <value>Copy the stored file to a temporary folder with its in-game filename and open it using the default program.</value>
+  </data>
+  <data name="File_Temp_Shell" xml:space="preserve">
+    <value>Call Right-Click Menu</value>
+  </data>
+  <data name="File_Temp_Shell_ToolTipText" xml:space="preserve">
+    <value>Copy the stored file to a temporary folder with its in-game filename and call it's right-click menu.</value>
+  </data>
+  <data name="Folder_Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Folder_Export_ToolTipText" xml:space="preserve">
+    <value>Copy the selected stored folders to aim folder with their in-game filenames.</value>
+  </data>
+  <data name="Folder_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Folder_Open_ToolTipText" xml:space="preserve">
+    <value>Open the selected folder.</value>
+  </data>
+  <data name="Form_Name" xml:space="preserve">
+    <value>Lazer Files Viewer</value>
+  </data>
+  <data name="Language_Name" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Refresh_ToolTipText" xml:space="preserve">
+    <value>Reload datebase and reopen the current folder.</value>
+  </data>
+  <data name="Search_Hint" xml:space="preserve">
+    <value>Search Beatmaps, Skins and Files</value>
+  </data>
+  <data name="String_Clean_Temp_Failed" xml:space="preserve">
+    <value>Failed to empty temporary folder.</value>
+  </data>
+  <data name="String_Create_File_Error" xml:space="preserve">
+    <value>Failed to create file</value>
+  </data>
+  <data name="String_Delete_Error" xml:space="preserve">
+    <value>Failed to delete.</value>
+  </data>
+  <data name="String_Delete_Warning" xml:space="preserve">
+    <value>Deleting stored files may cause database corruption or Lazer exceptions, please use with caution! \r\nThis operation will affect all the beatmaps and skins which using this files!</value>
+  </data>
+  <data name="String_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="String_Export_Error" xml:space="preserve">
+    <value>Failed to export.</value>
+  </data>
+  <data name="String_Export_To_Where" xml:space="preserve">
+    <value>Where to export?</value>
+  </data>
+  <data name="String_Folder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="String_Load_Database_Error" xml:space="preserve">
+    <value>Error reading database</value>
+  </data>
+  <data name="String_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="String_Open_Database_Dialog" xml:space="preserve">
+    <value>Couldn't find Lazer database, please select the file.</value>
+  </data>
+  <data name="String_Open_Database_Filter" xml:space="preserve">
+    <value>Realm Database (*.realm)|*.realm</value>
+  </data>
+  <data name="String_Open_File_Error" xml:space="preserve">
+    <value>Your operation system can not open this filetype. \r\nTry using "Call Right-Click Menu".</value>
+  </data>
+  <data name="String_Open_Right_Click_Menu_Error" xml:space="preserve">
+    <value>Failed to open right-click menu.</value>
+  </data>
+  <data name="String_Search_Result" xml:space="preserve">
+    <value>Search Result</value>
+  </data>
+  <data name="String_Select_Database_File" xml:space="preserve">
+    <value>Select Lazer Database File</value>
+  </data>
+  <data name="String_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="String_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="ToolStrip_About" xml:space="preserve">
+    <value>&amp;About</value>
+  </data>
+  <data name="ToolStrip_About_VisitRepo" xml:space="preserve">
+    <value>&amp;View this repository at Github</value>
+  </data>
+  <data name="ToolStrip_File" xml:space="preserve">
+    <value>&amp;File</value>
+  </data>
+  <data name="ToolStrip_File_Exit" xml:space="preserve">
+    <value>E&amp;xit</value>
+  </data>
+  <data name="ToolStrip_File_SetDatabasePath" xml:space="preserve">
+    <value>&amp;Select Database Path</value>
+  </data>
+  <data name="ToolStrip_Options" xml:space="preserve">
+    <value>&amp;Options</value>
+  </data>
+  <data name="ToolStrip_Options_CleanTemp" xml:space="preserve">
+    <value>&amp;Clean Temporary Files When Startup</value>
+  </data>
+  <data name="ToolStrip_Options_DeleteWarning" xml:space="preserve">
+    <value>Show Warning When &amp;Delete </value>
+  </data>
+  <data name="ToolStrip_Options_HideDeleted" xml:space="preserve">
+    <value>&amp;Hide Nonexistent Files</value>
+  </data>
+  <data name="ToolStrip_Options_Lang" xml:space="preserve">
+    <value>&amp;Language</value>
+  </data>
+</root>

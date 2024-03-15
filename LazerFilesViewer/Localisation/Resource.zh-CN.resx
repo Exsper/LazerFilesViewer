@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button_Back" xml:space="preserve">
+    <value>后退</value>
+  </data>
+  <data name="Button_Forward" xml:space="preserve">
+    <value>前进</value>
+  </data>
+  <data name="Button_Reload" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="Button_Up" xml:space="preserve">
+    <value>上移</value>
+  </data>
+  <data name="ColumnHeader_FileExist" xml:space="preserve">
+    <value>文件存在</value>
+  </data>
+  <data name="ColumnHeader_FilePath" xml:space="preserve">
+    <value>存储文件路径</value>
+  </data>
+  <data name="ColumnHeader_GamePath" xml:space="preserve">
+    <value>游戏文件路径</value>
+  </data>
+  <data name="ColumnHeader_Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="ColumnHeader_Type" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="FileFolder_Export" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="FileFolder_Export_ToolTipText" xml:space="preserve">
+    <value>将选中的所有存储文件和文件夹以真正文件名复制到目标文件夹</value>
+  </data>
+  <data name="File_Delete" xml:space="preserve">
+    <value>删除存储文件</value>
+  </data>
+  <data name="File_Delete_ToolTipText" xml:space="preserve">
+    <value>将选中的存储文件放入回收站
+
+可能会造成数据库损坏或Lazer程序异常，请小心使用！</value>
+  </data>
+  <data name="File_Export" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="File_Export_ToolTipText" xml:space="preserve">
+    <value>将选中的存储文件以真正文件名复制到目标文件夹</value>
+  </data>
+  <data name="File_GoToFolder" xml:space="preserve">
+    <value>转到文件所在位置</value>
+  </data>
+  <data name="File_OpenFolder" xml:space="preserve">
+    <value>打开存储文件所在文件夹</value>
+  </data>
+  <data name="File_Open_Txt" xml:space="preserve">
+    <value>用 记事本 打开</value>
+  </data>
+  <data name="File_Open_Txt_ToolTipText" xml:space="preserve">
+    <value>使用记事本程序打开存储文件</value>
+  </data>
+  <data name="File_Shell" xml:space="preserve">
+    <value>调用存储文件系统右键菜单</value>
+  </data>
+  <data name="File_Shell_ToolTipText" xml:space="preserve">
+    <value>调用存储文件的系统右键菜单</value>
+  </data>
+  <data name="File_Temp_Open" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="File_Temp_Open_ToolTipText" xml:space="preserve">
+    <value>将存储文件以真正文件名复制到临时文件夹并使用默认程序打开</value>
+  </data>
+  <data name="File_Temp_Shell" xml:space="preserve">
+    <value>调用系统右键菜单</value>
+  </data>
+  <data name="File_Temp_Shell_ToolTipText" xml:space="preserve">
+    <value>将存储文件以真正文件名复制到临时文件夹并调用系统右键菜单</value>
+  </data>
+  <data name="Folder_Export" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="Folder_Export_ToolTipText" xml:space="preserve">
+    <value>将选中的文件夹及其内部所有存储文件以真正文件名复制到目标文件夹</value>
+  </data>
+  <data name="Folder_Open" xml:space="preserve">
+    <value>打开</value>
+  </data>
+  <data name="Folder_Open_ToolTipText" xml:space="preserve">
+    <value>打开文件夹</value>
+  </data>
+  <data name="Form_Name" xml:space="preserve">
+    <value>Lazer文件浏览器</value>
+  </data>
+  <data name="Language_Name" xml:space="preserve">
+    <value>中文（简体）</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="Refresh_ToolTipText" xml:space="preserve">
+    <value>重新加载数据库文件并打开当前文件夹</value>
+  </data>
+  <data name="Search_Hint" xml:space="preserve">
+    <value>搜索谱面、皮肤和文件名</value>
+  </data>
+  <data name="String_Clean_Temp_Failed" xml:space="preserve">
+    <value>清空临时文件夹失败</value>
+  </data>
+  <data name="String_Create_File_Error" xml:space="preserve">
+    <value>创建文件时发生错误</value>
+  </data>
+  <data name="String_Delete_Error" xml:space="preserve">
+    <value>删除文件失败</value>
+  </data>
+  <data name="String_Delete_Warning" xml:space="preserve">
+    <value>删除存储文件可能会造成数据库损坏或Lazer程序异常，请小心使用！\r\n该操作会影响到所有使用该文件的谱面、皮肤等！</value>
+  </data>
+  <data name="String_Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="String_Export_Error" xml:space="preserve">
+    <value>导出文件失败</value>
+  </data>
+  <data name="String_Export_To_Where" xml:space="preserve">
+    <value>将文件导出到哪个文件夹？</value>
+  </data>
+  <data name="String_Folder" xml:space="preserve">
+    <value>文件夹</value>
+  </data>
+  <data name="String_Load_Database_Error" xml:space="preserve">
+    <value>读取数据库出错</value>
+  </data>
+  <data name="String_No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="String_Open_Database_Dialog" xml:space="preserve">
+    <value>找不到Lazer数据库文件，请手动选择该文件</value>
+  </data>
+  <data name="String_Open_Database_Filter" xml:space="preserve">
+    <value>Realm数据库 (*.realm)|*.realm</value>
+  </data>
+  <data name="String_Open_File_Error" xml:space="preserve">
+    <value>系统可能无法打开此类型文件。\r\n请选择“调用系统右键菜单”后自主选择打开方式。</value>
+  </data>
+  <data name="String_Open_Right_Click_Menu_Error" xml:space="preserve">
+    <value>打开右键菜单失败</value>
+  </data>
+  <data name="String_Search_Result" xml:space="preserve">
+    <value>搜索结果</value>
+  </data>
+  <data name="String_Select_Database_File" xml:space="preserve">
+    <value>选择Lazer数据库文件</value>
+  </data>
+  <data name="String_Warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="String_Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="ToolStrip_About" xml:space="preserve">
+    <value>关于(&amp;A)</value>
+  </data>
+  <data name="ToolStrip_About_VisitRepo" xml:space="preserve">
+    <value>访问项目地址(&amp;V)</value>
+  </data>
+  <data name="ToolStrip_File" xml:space="preserve">
+    <value>文件(&amp;F)</value>
+  </data>
+  <data name="ToolStrip_File_Exit" xml:space="preserve">
+    <value>退出(&amp;X)</value>
+  </data>
+  <data name="ToolStrip_File_SetDatabasePath" xml:space="preserve">
+    <value>重新选择数据库(&amp;S)</value>
+  </data>
+  <data name="ToolStrip_Options" xml:space="preserve">
+    <value>选项(&amp;O)</value>
+  </data>
+  <data name="ToolStrip_Options_CleanTemp" xml:space="preserve">
+    <value>启动时清空临时文件夹(&amp;C)</value>
+  </data>
+  <data name="ToolStrip_Options_DeleteWarning" xml:space="preserve">
+    <value>删除时提醒(&amp;D)</value>
+  </data>
+  <data name="ToolStrip_Options_HideDeleted" xml:space="preserve">
+    <value>隐藏不存在的存储文件(&amp;H)</value>
+  </data>
+  <data name="ToolStrip_Options_Lang" xml:space="preserve">
+    <value>语言(&amp;L)</value>
+  </data>
+</root>

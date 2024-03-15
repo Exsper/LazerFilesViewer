@@ -1,3 +1,4 @@
+using LazerFilesViewer.Localisation;
 using Microsoft.VisualBasic.FileIO;
 using osu.Game.Beatmaps;
 using osu.Game.Skinning;
@@ -5,6 +6,7 @@ using Realms;
 using System.Collections;
 using System.Configuration;
 using System.Diagnostics;
+using System.Security.Policy;
 
 namespace LazerFilesViewer
 {
@@ -30,6 +32,7 @@ namespace LazerFilesViewer
         string DeleteWarning = "1";
         string CleanTemp = "1";
         string HideDeleted = "-1";
+        string Lang = "";
 
         private RealmConfiguration GetConfiguration()
         {
@@ -142,7 +145,7 @@ namespace LazerFilesViewer
             {
                 ListViewItem item = FileListView.Items.Add(subDirectory.Name, (int)FileListIcons.Folder);
                 item.Tag = subDirectory;
-                item.SubItems.Add("文件夹");
+                item.SubItems.Add(Language.GetString("String_Folder"));
                 item.SubItems.Add("");
                 item.SubItems.Add(subDirectory.FullName);
                 item.SubItems.Add("");
@@ -155,7 +158,7 @@ namespace LazerFilesViewer
                     ListViewItem item = FileListView.Items.Add(f.Name, (int)GetIconIndex(f.GetFileType()));
                     item.Tag = f;
                     item.SubItems.Add(f.GetFileType());
-                    item.SubItems.Add(isExists ? "是" : "否");
+                    item.SubItems.Add(isExists ? Language.GetString("String_Yes") : Language.GetString("String_No"));
                     item.SubItems.Add(f.FullName);
                     item.SubItems.Add(f.GetFilePath());
                 }
@@ -170,14 +173,14 @@ namespace LazerFilesViewer
             FileListView.Items.Clear();
             ListViewItem item = FileListView.Items.Add("Songs", (int)FileListIcons.Folder);
             item.Tag = Songs;
-            item.SubItems.Add("文件夹");
+            item.SubItems.Add(Language.GetString("String_Folder"));
             item.SubItems.Add("");
             item.SubItems.Add("");
             item.SubItems.Add("");
 
             item = FileListView.Items.Add("Skins", (int)FileListIcons.Folder);
             item.Tag = Skins;
-            item.SubItems.Add("文件夹");
+            item.SubItems.Add(Language.GetString("String_Folder"));
             item.SubItems.Add("");
             item.SubItems.Add("");
             item.SubItems.Add("");
@@ -254,8 +257,75 @@ namespace LazerFilesViewer
             Directory.Delete(path);
         }
 
+        #region Language
+
+        private void SetLangText(string? lang)
+        {
+            Language.SetLocalClutrue(lang);
+            this.Text = Language.GetString("Form_Name");
+            FileToolStripMenuItem.Text = Language.GetString("ToolStrip_File");
+            SetDatabasePathToolStripMenuItem.Text = Language.GetString("ToolStrip_File_SetDatabasePath");
+            ExitToolStripMenuItem.Text = Language.GetString("ToolStrip_File_Exit");
+            OptionsStripMenuItem.Text = Language.GetString("ToolStrip_Options");
+            LangStripMenuItem.Text = Language.GetString("ToolStrip_Options_Lang");
+            DeleteWarningStripMenuItem.Text = Language.GetString("ToolStrip_Options_DeleteWarning");
+            HideDeletedStripMenuItem.Text = Language.GetString("ToolStrip_Options_HideDeleted");
+            CleanTempStripMenuItem.Text = Language.GetString("ToolStrip_Options_CleanTemp");
+            AboutToolStripMenuItem.Text = Language.GetString("ToolStrip_About");
+            VisitRepoToolStripMenuItem.Text = Language.GetString("ToolStrip_About_VisitRepo");
+            BackToolStripButton.Text = Language.GetString("Button_Back");
+            AdvanceToolStripButton.Text = Language.GetString("Button_Forward");
+            UpToolStripButton.Text = Language.GetString("Button_Up");
+            ReloadToolStripButton.Text = Language.GetString("Button_Reload");
+            SearchToolStripComboBox.Text = Language.GetString("Search_Hint");
+            NameColumnHeader.Text = Language.GetString("ColumnHeader_Name");
+            TypeColumnHeader.Text = Language.GetString("ColumnHeader_Type");
+            FileExistColumnHeader.Text = Language.GetString("ColumnHeader_FileExist");
+            GamePathColumnHeader.Text = Language.GetString("ColumnHeader_GamePath");
+            FilePathColumnHeader.Text = Language.GetString("ColumnHeader_FilePath");
+            TSMI_File_Temp_Open.Text = Language.GetString("File_Temp_Open");
+            TSMI_File_Temp_Open.ToolTipText = Language.GetString("File_Temp_Open_ToolTipText");
+            TSMI_File_GoToFolder.Text = Language.GetString("File_GoToFolder");
+            TSMI_File_Open_Txt.Text = Language.GetString("File_Open_Txt");
+            TSMI_File_Open_Txt.ToolTipText = Language.GetString("File_Open_Txt_ToolTipText");
+            TSMI_File_Temp_Shell.Text = Language.GetString("File_Temp_Shell");
+            TSMI_File_Temp_Shell.ToolTipText = Language.GetString("File_Temp_Shell_ToolTipText");
+            TSMI_File_EnableMulti_Copy.Text = Language.GetString("File_Export");
+            TSMI_File_EnableMulti_Copy.ToolTipText = Language.GetString("File_Export_ToolTipText");
+            TSMI_File_Shell.Text = Language.GetString("File_Shell");
+            TSMI_File_Shell.ToolTipText = Language.GetString("File_Shell_ToolTipText");
+            TSMI_File_OpenFolder.Text = Language.GetString("File_OpenFolder");
+            TSMI_File_EnableMulti_Delete.Text = Language.GetString("File_Delete");
+            TSMI_File_EnableMulti_Delete.ToolTipText = Language.GetString("File_Delete_ToolTipText");
+            TSMI_Folder_Open.Text = Language.GetString("Folder_Open");
+            TSMI_Folder_Open.ToolTipText = Language.GetString("Folder_Open_ToolTipText");
+            TSMI_Folder_EnableMulti_Copy.Text = Language.GetString("Folder_Export");
+            TSMI_Folder_EnableMulti_Copy.ToolTipText = Language.GetString("Folder_Export_ToolTipText");
+            TSMI_Mix_EnableMulti_Copy.Text = Language.GetString("FileFolder_Export");
+            TSMI_Mix_EnableMulti_Copy.ToolTipText = Language.GetString("FileFolder_Export_ToolTipText");
+            TSMI_Empty_Reload.Text = Language.GetString("Refresh");
+            TSMI_Empty_Reload.ToolTipText = Language.GetString("Refresh_ToolTipText");
+        }
+
+        private void enUS_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetLangText("en-US");
+            AddUpdateAppSettings("Lang", "en-US");
+        }
+
+        private void zhCN_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetLangText("zh-CN");
+            AddUpdateAppSettings("Lang", "zh-CN");
+        }
+
+        #endregion
+
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Lang = ConfigurationManager.AppSettings["Lang"] ?? "";
+            SetLangText(Lang);
+
             DeleteWarning = ConfigurationManager.AppSettings["DeleteWarning"] ?? DeleteWarning;
             DeleteWarningStripMenuItem.Checked = (DeleteWarning == "1") ? true : false;
             CleanTemp = ConfigurationManager.AppSettings["CleanTemp"] ?? CleanTemp;
@@ -273,7 +343,7 @@ namespace LazerFilesViewer
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("清空临时文件夹失败。\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Language.GetString("String_Clean_Temp_Failed") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -285,8 +355,8 @@ namespace LazerFilesViewer
             if (!File.Exists(DataBasePath))
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Filter = "Realm数据库 (*.realm)|*.realm";
-                openFileDialog.Title = "找不到Lazer数据库文件，请手动选择该文件";
+                openFileDialog.Filter = Language.GetString("String_Open_Database_Filter");
+                openFileDialog.Title = Language.GetString("String_Open_Database_Dialog");
                 openFileDialog.Multiselect = false;
                 openFileDialog.CheckFileExists = true;
                 openFileDialog.CheckPathExists = true;
@@ -304,7 +374,7 @@ namespace LazerFilesViewer
             }
             catch (Exception ex)
             {
-                DialogResult result = MessageBox.Show("读取数据库错误！\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult result = MessageBox.Show(Language.GetString("String_Load_Database_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (result == DialogResult.OK)
                 {
                     Close();
@@ -370,7 +440,7 @@ namespace LazerFilesViewer
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("创建文件时发生错误\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(Language.GetString("String_Create_File_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
                         try
@@ -382,7 +452,7 @@ namespace LazerFilesViewer
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("系统可能无法打开此类型文件。\r\n请选择“调用系统右键菜单”后自主选择打开方式。\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(Language.GetString("String_Open_File_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
@@ -567,7 +637,7 @@ namespace LazerFilesViewer
                 }
                 catch (Exception ex)
                 {
-                    DialogResult result = MessageBox.Show("读取数据库错误！\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DialogResult result = MessageBox.Show(Language.GetString("String_Load_Database_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     if (result == DialogResult.OK)
                     {
                         Close();
@@ -628,7 +698,7 @@ namespace LazerFilesViewer
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("创建文件时发生错误\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(Language.GetString("String_Create_File_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
                         try
@@ -640,7 +710,7 @@ namespace LazerFilesViewer
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("打开右键菜单失败\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(Language.GetString("String_Open_Right_Click_Menu_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
@@ -651,7 +721,7 @@ namespace LazerFilesViewer
         {
             using (FolderBrowserDialog dialog = new FolderBrowserDialog())
             {
-                dialog.Description = "将文件导出到哪个文件夹？";
+                dialog.Description = Language.GetString("String_Export_To_Where");
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     string folder = dialog.SelectedPath;
@@ -671,7 +741,7 @@ namespace LazerFilesViewer
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("导出文件失败\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(Language.GetString("String_Export_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
@@ -732,7 +802,7 @@ namespace LazerFilesViewer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("删除文件失败\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Language.GetString("String_Delete_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -740,7 +810,7 @@ namespace LazerFilesViewer
         {
             if (DeleteWarning == "1")
             {
-                DialogResult result = MessageBox.Show("删除存储文件可能会造成数据库损坏或Lazer程序异常，请小心使用！\r\n该操作会影响到所有使用该文件的谱面、皮肤等！", "警告", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show(Language.GetString("String_Delete_Warning"), Language.GetString("String_Warning"), MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.OK)
                 {
                     DeleteSelected();
@@ -781,7 +851,7 @@ namespace LazerFilesViewer
         {
             using (FolderBrowserDialog dialog = new FolderBrowserDialog())
             {
-                dialog.Description = "将文件导出到哪个文件夹？";
+                dialog.Description = Language.GetString("String_Export_To_Where");
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     string folder = dialog.SelectedPath;
@@ -798,7 +868,7 @@ namespace LazerFilesViewer
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("导出文件失败\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(Language.GetString("String_Export_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
@@ -814,7 +884,7 @@ namespace LazerFilesViewer
         {
             using (FolderBrowserDialog dialog = new FolderBrowserDialog())
             {
-                dialog.Description = "将文件导出到哪个文件夹？";
+                dialog.Description = Language.GetString("String_Export_To_Where");
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     string folder = dialog.SelectedPath;
@@ -838,7 +908,7 @@ namespace LazerFilesViewer
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("导出文件失败\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(Language.GetString("String_Export_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
@@ -907,7 +977,7 @@ namespace LazerFilesViewer
             {
                 ListViewItem item = FileListView.Items.Add(dir.Name, (int)FileListIcons.Folder);
                 item.Tag = dir;
-                item.SubItems.Add("文件夹");
+                item.SubItems.Add(Language.GetString("String_Folder"));
                 item.SubItems.Add("");
                 item.SubItems.Add(dir.FullName);
                 item.SubItems.Add("");
@@ -920,12 +990,12 @@ namespace LazerFilesViewer
                     ListViewItem item = FileListView.Items.Add(f.Name, (int)GetIconIndex(f.GetFileType()));
                     item.Tag = f;
                     item.SubItems.Add(f.GetFileType());
-                    item.SubItems.Add(isExists ? "是" : "否");
+                    item.SubItems.Add(isExists ? Language.GetString("String_Yes") : Language.GetString("String_No"));
                     item.SubItems.Add(f.FullName);
                     item.SubItems.Add(f.GetFilePath());
                 }
             }
-            AddressToolStripComboBox.Text = "搜索结果";
+            AddressToolStripComboBox.Text = Language.GetString("String_Search_Result");
             if (!isHistory) historyControl.AddHistory(CurrentPage.Search, searchText);
             CheckButtonEnable();
         }
@@ -945,7 +1015,7 @@ namespace LazerFilesViewer
 
         private void SearchToolStripComboBox_Leave(object sender, EventArgs e)
         {
-            SearchToolStripComboBox.Text = "搜索谱面、皮肤和后缀名";
+            SearchToolStripComboBox.Text = Language.GetString("Search_Hint");
         }
 
         private void TSMI_File_GoToFolder_Click(object sender, EventArgs e)
@@ -981,8 +1051,8 @@ namespace LazerFilesViewer
         private void SetDatabasePathToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Realm数据库 (*.realm)|*.realm";
-            openFileDialog.Title = "选择Lazer数据库文件";
+            openFileDialog.Filter = Language.GetString("String_Open_Database_Filter");
+            openFileDialog.Title = Language.GetString("String_Select_Database_File");
             openFileDialog.Multiselect = false;
             openFileDialog.CheckFileExists = true;
             openFileDialog.CheckPathExists = true;
@@ -999,7 +1069,7 @@ namespace LazerFilesViewer
             }
             catch (Exception ex)
             {
-                DialogResult result = MessageBox.Show("读取数据库错误！\r\n" + ex, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult result = MessageBox.Show(Language.GetString("String_Load_Database_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (result == DialogResult.OK)
                 {
                     Close();
@@ -1034,6 +1104,11 @@ namespace LazerFilesViewer
             else HideDeleted = "1";
             AddUpdateAppSettings("HideDeleted", HideDeleted);
             Reload(false);
+        }
+
+        private void VisitRepoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(@"https://github.com/exsper/LazerFilesViewer") { UseShellExecute = true });
         }
     }
 
