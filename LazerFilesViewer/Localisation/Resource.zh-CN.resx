@@ -224,6 +224,9 @@
   <data name="String_Clean_Temp_Failed" xml:space="preserve">
     <value>清空临时文件夹失败</value>
   </data>
+  <data name="String_Create_Backup_Error" xml:space="preserve">
+    <value>创建数据库备份失败</value>
+  </data>
   <data name="String_Create_File_Error" xml:space="preserve">
     <value>创建文件时发生错误</value>
   </data>
@@ -231,7 +234,8 @@
     <value>删除文件失败</value>
   </data>
   <data name="String_Delete_Warning" xml:space="preserve">
-    <value>删除存储文件可能会造成数据库损坏或Lazer程序异常，请小心使用！\r\n该操作会影响到所有使用该文件的谱面、皮肤等！</value>
+    <value>删除存储文件可能会造成数据库损坏或Lazer程序异常，请小心使用！
+该操作会影响到所有使用该文件的谱面、皮肤等！</value>
   </data>
   <data name="String_Error" xml:space="preserve">
     <value>错误</value>
@@ -258,7 +262,8 @@
     <value>Realm数据库 (*.realm)|*.realm</value>
   </data>
   <data name="String_Open_File_Error" xml:space="preserve">
-    <value>系统可能无法打开此类型文件。\r\n请选择“调用系统右键菜单”后自主选择打开方式。</value>
+    <value>系统可能无法打开此类型文件。
+请选择“调用系统右键菜单”后自主选择打开方式。</value>
   </data>
   <data name="String_Open_Right_Click_Menu_Error" xml:space="preserve">
     <value>打开右键菜单失败</value>
@@ -284,8 +289,17 @@
   <data name="ToolStrip_File" xml:space="preserve">
     <value>文件(&amp;F)</value>
   </data>
+  <data name="ToolStrip_File_Backup" xml:space="preserve">
+    <value>创建数据库备份(&amp;B)</value>
+  </data>
   <data name="ToolStrip_File_Exit" xml:space="preserve">
     <value>退出(&amp;X)</value>
+  </data>
+  <data name="ToolStrip_File_OpenBackupFolder" xml:space="preserve">
+    <value>打开备份文件夹(&amp;A)</value>
+  </data>
+  <data name="ToolStrip_File_OpenDatabaseFolder" xml:space="preserve">
+    <value>打开数据库所在文件夹(&amp;O)</value>
   </data>
   <data name="ToolStrip_File_SetDatabasePath" xml:space="preserve">
     <value>重新选择数据库(&amp;S)</value>

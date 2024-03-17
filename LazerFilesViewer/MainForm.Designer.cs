@@ -61,6 +61,8 @@
             SearchToolStripComboBox = new ToolStripComboBox();
             FileToolStripMenuItem = new ToolStripMenuItem();
             SetDatabasePathToolStripMenuItem = new ToolStripMenuItem();
+            OpenDatabaseFolderToolStripMenuItem = new ToolStripMenuItem();
+            BackupToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator3 = new ToolStripSeparator();
             ExitToolStripMenuItem = new ToolStripMenuItem();
             OptionsStripMenuItem = new ToolStripMenuItem();
@@ -74,6 +76,7 @@
             MainMenuStrip = new MenuStrip();
             AboutToolStripMenuItem = new ToolStripMenuItem();
             VisitRepoToolStripMenuItem = new ToolStripMenuItem();
+            OpenBackupFolderToolStripMenuItem = new ToolStripMenuItem();
             ViewerContextMenuStrip.SuspendLayout();
             MainToolStrip.SuspendLayout();
             MainMenuStrip.SuspendLayout();
@@ -306,7 +309,7 @@
             // 
             // FileToolStripMenuItem
             // 
-            FileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SetDatabasePathToolStripMenuItem, toolStripSeparator3, ExitToolStripMenuItem });
+            FileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { SetDatabasePathToolStripMenuItem, OpenDatabaseFolderToolStripMenuItem, BackupToolStripMenuItem, OpenBackupFolderToolStripMenuItem, toolStripSeparator3, ExitToolStripMenuItem });
             FileToolStripMenuItem.Name = "FileToolStripMenuItem";
             FileToolStripMenuItem.Size = new Size(97, 21);
             FileToolStripMenuItem.Text = "ToolStrip_File";
@@ -314,19 +317,33 @@
             // SetDatabasePathToolStripMenuItem
             // 
             SetDatabasePathToolStripMenuItem.Name = "SetDatabasePathToolStripMenuItem";
-            SetDatabasePathToolStripMenuItem.Size = new Size(256, 22);
+            SetDatabasePathToolStripMenuItem.Size = new Size(282, 22);
             SetDatabasePathToolStripMenuItem.Text = "ToolStrip_File_SetDatabasePath";
             SetDatabasePathToolStripMenuItem.Click += SetDatabasePathToolStripMenuItem_Click;
+            // 
+            // OpenDatabaseFolderToolStripMenuItem
+            // 
+            OpenDatabaseFolderToolStripMenuItem.Name = "OpenDatabaseFolderToolStripMenuItem";
+            OpenDatabaseFolderToolStripMenuItem.Size = new Size(282, 22);
+            OpenDatabaseFolderToolStripMenuItem.Text = "ToolStrip_File_OpenDatabaseFolder";
+            OpenDatabaseFolderToolStripMenuItem.Click += OpenDatabaseFolderToolStripMenuItem_Click;
+            // 
+            // BackupToolStripMenuItem
+            // 
+            BackupToolStripMenuItem.Name = "BackupToolStripMenuItem";
+            BackupToolStripMenuItem.Size = new Size(282, 22);
+            BackupToolStripMenuItem.Text = "ToolStrip_File_Backup";
+            BackupToolStripMenuItem.Click += BackupToolStripMenuItem_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(253, 6);
+            toolStripSeparator3.Size = new Size(279, 6);
             // 
             // ExitToolStripMenuItem
             // 
             ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            ExitToolStripMenuItem.Size = new Size(256, 22);
+            ExitToolStripMenuItem.Size = new Size(282, 22);
             ExitToolStripMenuItem.Text = "退出(&X)";
             ExitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
             // 
@@ -414,6 +431,13 @@
             VisitRepoToolStripMenuItem.Text = "ToolStrip_About_VisitRepo";
             VisitRepoToolStripMenuItem.Click += VisitRepoToolStripMenuItem_Click;
             // 
+            // OpenBackupFolderToolStripMenuItem
+            // 
+            OpenBackupFolderToolStripMenuItem.Name = "OpenBackupFolderToolStripMenuItem";
+            OpenBackupFolderToolStripMenuItem.Size = new Size(282, 22);
+            OpenBackupFolderToolStripMenuItem.Text = "ToolStrip_File_OpenBackupFolder";
+            OpenBackupFolderToolStripMenuItem.Click += OpenBackupFolderToolStripMenuItem_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -479,5 +503,8 @@
         private MenuStrip MainMenuStrip;
         private ToolStripMenuItem AboutToolStripMenuItem;
         private ToolStripMenuItem VisitRepoToolStripMenuItem;
+        private ToolStripMenuItem OpenDatabaseFolderToolStripMenuItem;
+        private ToolStripMenuItem BackupToolStripMenuItem;
+        private ToolStripMenuItem OpenBackupFolderToolStripMenuItem;
     }
 }

@@ -224,6 +224,9 @@ May cause database corruption or Lazer exceptions, please use with caution!</val
   <data name="String_Clean_Temp_Failed" xml:space="preserve">
     <value>Failed to empty temporary folder.</value>
   </data>
+  <data name="String_Create_Backup_Error" xml:space="preserve">
+    <value>Failed to create backup.</value>
+  </data>
   <data name="String_Create_File_Error" xml:space="preserve">
     <value>Failed to create file</value>
   </data>
@@ -231,7 +234,8 @@ May cause database corruption or Lazer exceptions, please use with caution!</val
     <value>Failed to delete.</value>
   </data>
   <data name="String_Delete_Warning" xml:space="preserve">
-    <value>Deleting stored files may cause database corruption or Lazer exceptions, please use with caution! \r\nThis operation will affect all the beatmaps and skins which using this files!</value>
+    <value>Deleting stored files may cause database corruption or Lazer exceptions, please use with caution! 
+This operation will affect all the beatmaps and skins which using this files!</value>
   </data>
   <data name="String_Error" xml:space="preserve">
     <value>Error</value>
@@ -258,7 +262,8 @@ May cause database corruption or Lazer exceptions, please use with caution!</val
     <value>Realm Database (*.realm)|*.realm</value>
   </data>
   <data name="String_Open_File_Error" xml:space="preserve">
-    <value>Your operation system can not open this filetype. \r\nTry using "Call Right-Click Menu".</value>
+    <value>Your operation system can not open this filetype. 
+Try using "Call Right-Click Menu".</value>
   </data>
   <data name="String_Open_Right_Click_Menu_Error" xml:space="preserve">
     <value>Failed to open right-click menu.</value>
@@ -284,8 +289,17 @@ May cause database corruption or Lazer exceptions, please use with caution!</val
   <data name="ToolStrip_File" xml:space="preserve">
     <value>&amp;File</value>
   </data>
+  <data name="ToolStrip_File_Backup" xml:space="preserve">
+    <value>&amp;Backup Database</value>
+  </data>
   <data name="ToolStrip_File_Exit" xml:space="preserve">
     <value>E&amp;xit</value>
+  </data>
+  <data name="ToolStrip_File_OpenBackupFolder" xml:space="preserve">
+    <value>Open B&amp;ackup Folder</value>
+  </data>
+  <data name="ToolStrip_File_OpenDatabaseFolder" xml:space="preserve">
+    <value>&amp;Open Database Folder</value>
   </data>
   <data name="ToolStrip_File_SetDatabasePath" xml:space="preserve">
     <value>&amp;Select Database Path</value>

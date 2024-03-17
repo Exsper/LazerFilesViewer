@@ -7,6 +7,7 @@ using System.Collections;
 using System.Configuration;
 using System.Diagnostics;
 using System.Security.Policy;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LazerFilesViewer
 {
@@ -15,6 +16,7 @@ namespace LazerFilesViewer
         private const int schema_version = 40;
 
         private string TempFolder = AppDomain.CurrentDomain.BaseDirectory + "tmp\\";
+        private string BackupFolder = AppDomain.CurrentDomain.BaseDirectory + "Backups\\";
 
         private string LazerPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\osu\";
         private string LazerFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\osu\files\";
@@ -265,6 +267,9 @@ namespace LazerFilesViewer
             this.Text = Language.GetString("Form_Name");
             FileToolStripMenuItem.Text = Language.GetString("ToolStrip_File");
             SetDatabasePathToolStripMenuItem.Text = Language.GetString("ToolStrip_File_SetDatabasePath");
+            OpenDatabaseFolderToolStripMenuItem.Text = Language.GetString("ToolStrip_File_OpenDatabaseFolder");
+            BackupToolStripMenuItem.Text = Language.GetString("ToolStrip_File_Backup");
+            OpenBackupFolderToolStripMenuItem.Text = Language.GetString("ToolStrip_File_OpenBackupFolder");
             ExitToolStripMenuItem.Text = Language.GetString("ToolStrip_File_Exit");
             OptionsStripMenuItem.Text = Language.GetString("ToolStrip_Options");
             LangStripMenuItem.Text = Language.GetString("ToolStrip_Options_Lang");
@@ -1079,6 +1084,43 @@ namespace LazerFilesViewer
             OpenPath("");
         }
 
+        private void OpenDatabaseFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string sourcePath = DataBasePath;
+            OpenFolderAndSelectItems.OpenFolderAndSelectFiles(sourcePath.Substring(0, sourcePath.LastIndexOf("\\")), sourcePath);
+        }
+
+        private void BackupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string sourcePath = DataBasePath;
+            string destinationPath = BackupFolder + "client.realm." + DateTime.Now.ToFileTime();
+            try
+            {
+                if (!Directory.Exists(BackupFolder))
+                {
+                    Directory.CreateDirectory(BackupFolder);
+                }
+                File.Copy(sourcePath, destinationPath, true);
+                OpenFolderAndSelectItems.OpenFolderAndSelectFiles(destinationPath.Substring(0, destinationPath.LastIndexOf("\\")), destinationPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Language.GetString("String_Create_Backup_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
+
+        private void OpenBackupFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string sourcePath = BackupFolder;
+            if (!Directory.Exists(sourcePath))
+            {
+                Directory.CreateDirectory(sourcePath);
+            }
+            OpenFolderAndSelectItems.OpenFolderAndSelectFiles(sourcePath);
+
+        }
+
         private void TSMI_Empty_Reload_Click(object sender, EventArgs e)
         {
             Reload(true);
@@ -1110,6 +1152,8 @@ namespace LazerFilesViewer
         {
             Process.Start(new ProcessStartInfo(@"https://github.com/exsper/LazerFilesViewer") { UseShellExecute = true });
         }
+
+
     }
 
     public class SelectedItemsList
