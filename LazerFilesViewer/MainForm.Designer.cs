@@ -63,6 +63,7 @@
             SetDatabasePathToolStripMenuItem = new ToolStripMenuItem();
             OpenDatabaseFolderToolStripMenuItem = new ToolStripMenuItem();
             BackupToolStripMenuItem = new ToolStripMenuItem();
+            OpenBackupFolderToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator3 = new ToolStripSeparator();
             ExitToolStripMenuItem = new ToolStripMenuItem();
             OptionsStripMenuItem = new ToolStripMenuItem();
@@ -73,13 +74,12 @@
             HideDeletedStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator4 = new ToolStripSeparator();
             CleanTempStripMenuItem = new ToolStripMenuItem();
-            MainMenuStrip = new MenuStrip();
+            MainFormMenuStrip = new MenuStrip();
             AboutToolStripMenuItem = new ToolStripMenuItem();
             VisitRepoToolStripMenuItem = new ToolStripMenuItem();
-            OpenBackupFolderToolStripMenuItem = new ToolStripMenuItem();
             ViewerContextMenuStrip.SuspendLayout();
             MainToolStrip.SuspendLayout();
-            MainMenuStrip.SuspendLayout();
+            MainFormMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
             // FileListView
@@ -335,6 +335,13 @@
             BackupToolStripMenuItem.Text = "ToolStrip_File_Backup";
             BackupToolStripMenuItem.Click += BackupToolStripMenuItem_Click;
             // 
+            // OpenBackupFolderToolStripMenuItem
+            // 
+            OpenBackupFolderToolStripMenuItem.Name = "OpenBackupFolderToolStripMenuItem";
+            OpenBackupFolderToolStripMenuItem.Size = new Size(282, 22);
+            OpenBackupFolderToolStripMenuItem.Text = "ToolStrip_File_OpenBackupFolder";
+            OpenBackupFolderToolStripMenuItem.Click += OpenBackupFolderToolStripMenuItem_Click;
+            // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
@@ -408,14 +415,14 @@
             CleanTempStripMenuItem.Text = "ToolStrip_Options_CleanTemp";
             CleanTempStripMenuItem.Click += CleanTempStripMenuItem_Click;
             // 
-            // MainMenuStrip
+            // MainFormMenuStrip
             // 
-            MainMenuStrip.Items.AddRange(new ToolStripItem[] { FileToolStripMenuItem, OptionsStripMenuItem, AboutToolStripMenuItem });
-            MainMenuStrip.Location = new Point(0, 0);
-            MainMenuStrip.Name = "MainMenuStrip";
-            MainMenuStrip.Size = new Size(800, 25);
-            MainMenuStrip.TabIndex = 0;
-            MainMenuStrip.Text = "menuStrip1";
+            MainFormMenuStrip.Items.AddRange(new ToolStripItem[] { FileToolStripMenuItem, OptionsStripMenuItem, AboutToolStripMenuItem });
+            MainFormMenuStrip.Location = new Point(0, 0);
+            MainFormMenuStrip.Name = "MainFormMenuStrip";
+            MainFormMenuStrip.Size = new Size(800, 25);
+            MainFormMenuStrip.TabIndex = 0;
+            MainFormMenuStrip.Text = "menuStrip1";
             // 
             // AboutToolStripMenuItem
             // 
@@ -431,13 +438,6 @@
             VisitRepoToolStripMenuItem.Text = "ToolStrip_About_VisitRepo";
             VisitRepoToolStripMenuItem.Click += VisitRepoToolStripMenuItem_Click;
             // 
-            // OpenBackupFolderToolStripMenuItem
-            // 
-            OpenBackupFolderToolStripMenuItem.Name = "OpenBackupFolderToolStripMenuItem";
-            OpenBackupFolderToolStripMenuItem.Size = new Size(282, 22);
-            OpenBackupFolderToolStripMenuItem.Text = "ToolStrip_File_OpenBackupFolder";
-            OpenBackupFolderToolStripMenuItem.Click += OpenBackupFolderToolStripMenuItem_Click;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -445,15 +445,15 @@
             ClientSize = new Size(800, 450);
             Controls.Add(MainToolStrip);
             Controls.Add(FileListView);
-            Controls.Add(MainMenuStrip);
+            Controls.Add(MainFormMenuStrip);
             Name = "MainForm";
             Text = "Form_Name";
             Load += MainForm_Load;
             ViewerContextMenuStrip.ResumeLayout(false);
             MainToolStrip.ResumeLayout(false);
             MainToolStrip.PerformLayout();
-            MainMenuStrip.ResumeLayout(false);
-            MainMenuStrip.PerformLayout();
+            MainFormMenuStrip.ResumeLayout(false);
+            MainFormMenuStrip.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -500,7 +500,7 @@
         private ToolStripMenuItem HideDeletedStripMenuItem;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem CleanTempStripMenuItem;
-        private MenuStrip MainMenuStrip;
+        private MenuStrip MainFormMenuStrip;
         private ToolStripMenuItem AboutToolStripMenuItem;
         private ToolStripMenuItem VisitRepoToolStripMenuItem;
         private ToolStripMenuItem OpenDatabaseFolderToolStripMenuItem;

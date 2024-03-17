@@ -10,8 +10,8 @@ namespace osu.Game
     {
         [PrimaryKey]
         public Guid ID { get; set; }
-        public string? Name { get; set; }
-        public IList<string> BeatmapMD5Hashes { get; }
+        public string Name { get; set; } = string.Empty;
+        public IList<string> BeatmapMD5Hashes { get; } = null!;
         public DateTimeOffset LastModified { get; set; }
     }
 }

@@ -9,11 +9,11 @@ namespace osu.Game
     public class RulesetInfo : RealmObject
     {
         [PrimaryKey]
-        public string? ShortName { get; set; }
+        public string ShortName { get; set; } = string.Empty;
         [Indexed]
         public int OnlineID { get; set; }
-        public string? Name { get; set; }
-        public string? InstantiationInfo { get; set; }
+        public string Name { get; set; } = null!;
+        public string InstantiationInfo { get; set; } = null!;
         public int LastAppliedDifficultyVersion { get; set; }
         public bool Available { get; set; }
     }

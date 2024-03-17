@@ -11,28 +11,35 @@ namespace osu.Game
         [PrimaryKey]
         public Guid ID { get; set; }
         public BeatmapInfo? BeatmapInfo { get; set; }
-        public RulesetInfo? Ruleset { get; set; }
-        public IList<RealmNamedFileUsage> Files { get; }
-        public string? Hash { get; set; }
+        public RulesetInfo Ruleset { get; set; } = null!;
+        public IList<RealmNamedFileUsage> Files { get; } = null!;
+        public string Hash { get; set; } = string.Empty;
         public bool DeletePending { get; set; }
-        public int TotalScore { get; set; }
+        public long TotalScore { get; set; }
         public int MaxCombo { get; set; }
         public double Accuracy { get; set; }
         public DateTimeOffset Date { get; set; }
         public double? PP { get; set; }
-        public int OnlineID { get; set; }
-        public RealmUser? User { get; set; }
-        public string? Mods { get; set; }
-        public string? Statistics { get; set; }
-        public string? MaximumStatistics { get; set; }
-        public int Rank { get; set; }
+        [Indexed]
+        public long OnlineID { get; set; }
+        [MapTo("User")]
+        public RealmUser RealmUser { get; set; } = null!;
+        [MapTo("Mods")]
+        public string ModsJson { get; set; } = string.Empty;
+        [MapTo("Statistics")]
+        public string StatisticsJson { get; set; } = string.Empty;
+        [MapTo("MaximumStatistics")]
+        public string MaximumStatisticsJson { get; set; } = string.Empty;
+        [MapTo("Rank")]
+        public int RankInt { get; set; }
         public int Combo { get; set; }
-        public string? ClientVersion { get; set; }
-        public string? BeatmapHash { get; set; }
+        public string ClientVersion { get; set; } = string.Empty;
+        public string BeatmapHash { get; set; } = string.Empty;
         public int TotalScoreVersion { get; set; }
-        public int? LegacyTotalScore { get; set; }
+        public long? LegacyTotalScore { get; set; }
         public bool BackgroundReprocessingFailed { get; set; }
-        public int LegacyOnlineID { get; set; }
+        [Indexed]
+        public long LegacyOnlineID { get; set; }
         public bool IsLegacyScore { get; set; }
     }
 }

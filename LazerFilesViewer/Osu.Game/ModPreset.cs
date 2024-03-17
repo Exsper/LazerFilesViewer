@@ -10,10 +10,11 @@ namespace osu.Game
     {
         [PrimaryKey]
         public Guid ID { get; set; }
-        public RulesetInfo? Ruleset { get; set; }
-        public string? Name { get; set; }
-        public string? Description { get; set; }
-        public string? Mods { get; set; }
+        public RulesetInfo Ruleset { get; set; } = null!;
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        [MapTo("Mods")]
+        public string ModsJson { get; set; } = string.Empty;
         public bool DeletePending { get; set; }
     }
 }

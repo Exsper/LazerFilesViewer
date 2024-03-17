@@ -9,7 +9,8 @@ namespace osu.Game
     public class RealmUser : RealmObject
     {
         public int OnlineID { get; set; }
-        public string? Username { get; set; }
-        public string? CountryCode { get; set; }
+        public string Username { get; set; } = string.Empty;
+        [MapTo("CountryCode")]
+        public string? CountryString { get; set; }
     }
 }

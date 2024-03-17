@@ -6,15 +6,15 @@ using Realms;
 namespace osu.Game
 {
     [MapTo("RulesetSetting")]
-    public class RulesetSetting : RealmObject
+    public class RealmRulesetSetting : RealmObject
     {
         [Indexed]
-        public string? RulesetName { get; set; }
+        public string RulesetName { get; set; } = string.Empty;
         [Indexed]
         public int Variant { get; set; }
         [Required]
-        public string Key { get; set; }
+        public string Key { get; set; } = string.Empty;
         [Required]
-        public string Value { get; set; }
+        public string Value { get; set; } = string.Empty;
     }
 }

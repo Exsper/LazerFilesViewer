@@ -8,15 +8,15 @@ namespace osu.Game
     [MapTo("BeatmapMetadata")]
     public class BeatmapMetadata : RealmObject
     {
-        public string? Title { get; set; }
-        public string? TitleUnicode { get; set; }
-        public string? Artist { get; set; }
-        public string? ArtistUnicode { get; set; }
-        public RealmUser? Author { get; set; }
-        public string? Source { get; set; }
-        public string? Tags { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string TitleUnicode { get; set; } = string.Empty;
+        public string Artist { get; set; } = string.Empty;
+        public string ArtistUnicode { get; set; } = string.Empty;
+        public RealmUser Author { get; set; } = null!;
+        public string Source { get; set; } = string.Empty;
+        public string Tags { get; set; } = string.Empty;
         public int PreviewTime { get; set; }
-        public string? AudioFile { get; set; }
-        public string? BackgroundFile { get; set; }
+        public string AudioFile { get; set; } = string.Empty;
+        public string BackgroundFile { get; set; } = string.Empty;
     }
 }

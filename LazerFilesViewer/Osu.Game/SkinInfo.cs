@@ -10,10 +10,10 @@ namespace osu.Game
     {
         [PrimaryKey]
         public Guid ID { get; set; }
-        public string? Name { get; set; }
-        public string? Creator { get; set; }
-        public string? InstantiationInfo { get; set; }
-        public string? Hash { get; set; }
+        public string Name { get; set; } = null!;
+        public string Creator { get; set; } = null!;
+        public string InstantiationInfo { get; set; } = null!;
+        public string Hash { get; set; } = string.Empty;
         public bool Protected { get; set; }
         public IList<RealmNamedFileUsage> Files { get; } = null!;
         public bool DeletePending { get; set; }

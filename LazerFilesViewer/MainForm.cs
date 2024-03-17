@@ -48,21 +48,22 @@ namespace LazerFilesViewer
         {
             Realm r = Realm.GetInstance(GetConfiguration());
             var allSkins = r.All<SkinInfo>();
-            // var allScores = r.All<ScoreInfo>();
-            // var allRulesetSettings = r.All<RulesetSetting>();
-            // var allRulesets = r.All<RulesetInfo>();
-            // var allModPresets = r.All<ModPreset>();
-            // var allKeyBindings = r.All<KeyBinding>();
-            // var allFiles = r.All<RealmFile>();
             var allBeatmapSets = r.All<BeatmapSetInfo>();
-            // var allBeatmapMetadatas = r.All<BeatmapMetadata>();
-            // var allBeatmapCollections = r.All<BeatmapCollection>();
-            // var allBeatmaps = r.All<BeatmapInfo>();
-            // var allUsers = r.All<RealmUser>();
-            // var allFileUsages = r.All<RealmNamedFileUsage>();
-            // var allBeatmapUserSettings = r.All<BeatmapUserSettings>();
-            // var allBeatmapDifficulty = r.All<BeatmapDifficulty>();
-
+            /*
+            var allScores = r.All<ScoreInfo>();
+            var allRulesetSettings = r.All<RealmRulesetSetting>();
+            var allRulesets = r.All<RulesetInfo>();
+            var allModPresets = r.All<ModPreset>();
+            var allKeyBindings = r.All<RealmKeyBinding>();
+            var allFiles = r.All<RealmFile>();
+            var allBeatmapMetadatas = r.All<BeatmapMetadata>();
+            var allBeatmapCollections = r.All<BeatmapCollection>();
+            var allBeatmaps = r.All<BeatmapInfo>();
+            var allUsers = r.All<RealmUser>();
+            var allFileUsages = r.All<RealmNamedFileUsage>();
+            var allBeatmapUserSettings = r.All<BeatmapUserSettings>();
+            var allBeatmapDifficulty = r.All<BeatmapDifficulty>();
+            */
             foreach (var item in allBeatmapSets)
             {
                 string title;
@@ -130,7 +131,7 @@ namespace LazerFilesViewer
             video = 4,
         }
 
-        private FileListIcons GetIconIndex(string fileType)
+        private static FileListIcons GetIconIndex(string fileType)
         {
             fileType = fileType.ToLower();
             switch (fileType)
@@ -232,7 +233,7 @@ namespace LazerFilesViewer
                 ShowCurrentDirectory(Skins, isHistory);
                 return true;
             }
-            FakeDirectory d = null;
+            FakeDirectory? d = null;
             if (path.StartsWith("Songs\\"))
             {
                 d = Songs.GetDirectory(path.Substring(6));
@@ -438,14 +439,14 @@ namespace LazerFilesViewer
 
                 if (tag != null)
                 {
-                    if (tag is FakeDirectory)
+                    if (tag is FakeDirectory fakedirectory)
                     {
-                        ShowCurrentDirectory((FakeDirectory)tag);
+                        ShowCurrentDirectory(fakedirectory);
                     }
-                    else if (tag is FakeFile)
+                    else if (tag is FakeFile fakefile)
                     {
-                        string sourcePath = LazerFilePath + ((FakeFile)tag).GetFilePath();
-                        string destinationPath = TempFolder + ((FakeFile)tag).Name;
+                        string sourcePath = LazerFilePath + fakefile.GetFilePath();
+                        string destinationPath = TempFolder + fakefile.Name;
                         try
                         {
                             if (!Directory.Exists(TempFolder))
@@ -595,13 +596,13 @@ namespace LazerFilesViewer
                 {
                     if (item.Tag != null)
                     {
-                        if (item.Tag is FakeDirectory)
+                        if (item.Tag is FakeDirectory fakedirectory)
                         {
-                            fakeDirectories.Add(item.Tag as FakeDirectory);
+                            fakeDirectories.Add(fakedirectory);
                         }
-                        else if (item.Tag is FakeFile)
+                        else if (item.Tag is FakeFile fakefile)
                         {
-                            fakeFiles.Add(item.Tag as FakeFile);
+                            fakeFiles.Add(fakefile);
                         }
                     }
                 }
@@ -644,7 +645,7 @@ namespace LazerFilesViewer
 
         private void Reload(bool reloadDataBase = true)
         {
-            HistoryPoint hp = historyControl.GetCurrentHistoryPoint();
+            HistoryPoint? hp = historyControl.GetCurrentHistoryPoint();
             if (reloadDataBase)
             {
                 try
@@ -659,6 +660,11 @@ namespace LazerFilesViewer
                         Close();
                     }
                 }
+            }
+            if (hp == null)
+            {
+                OpenPath("");
+                return;
             }
             if (hp.CurrentPage == CurrentPage.Search)
             {
@@ -683,9 +689,9 @@ namespace LazerFilesViewer
 
                 if (tag != null)
                 {
-                    if (tag is FakeFile)
+                    if (tag is FakeFile fakefile)
                     {
-                        string sourcePath = LazerFilePath + ((FakeFile)tag).GetFilePath();
+                        string sourcePath = LazerFilePath + fakefile.GetFilePath();
                         Process.Start("notepad.exe", sourcePath);
                     }
                 }
@@ -700,10 +706,10 @@ namespace LazerFilesViewer
 
                 if (tag != null)
                 {
-                    if (tag is FakeFile)
+                    if (tag is FakeFile fakefile)
                     {
-                        string sourcePath = LazerFilePath + ((FakeFile)tag).GetFilePath();
-                        string destinationPath = TempFolder + ((FakeFile)tag).Name;
+                        string sourcePath = LazerFilePath + fakefile.GetFilePath();
+                        string destinationPath = TempFolder + fakefile.Name;
                         try
                         {
                             if (!Directory.Exists(TempFolder))
@@ -772,9 +778,9 @@ namespace LazerFilesViewer
 
                 if (tag != null)
                 {
-                    if (tag is FakeFile)
+                    if (tag is FakeFile fakefile)
                     {
-                        string sourcePath = LazerFilePath + ((FakeFile)tag).GetFilePath();
+                        string sourcePath = LazerFilePath + fakefile.GetFilePath();
                         ShellContextMenu scm = new ShellContextMenu();
                         FileInfo[] files = new FileInfo[1];
                         files[0] = new FileInfo(sourcePath);
@@ -792,9 +798,9 @@ namespace LazerFilesViewer
 
                 if (tag != null)
                 {
-                    if (tag is FakeFile)
+                    if (tag is FakeFile fakefile)
                     {
-                        string sourcePath = LazerFilePath + ((FakeFile)tag).GetFilePath();
+                        string sourcePath = LazerFilePath + fakefile.GetFilePath();
                         OpenFolderAndSelectItems.OpenFolderAndSelectFiles(sourcePath.Substring(0, sourcePath.LastIndexOf("\\")), sourcePath);
                     }
                 }
@@ -1190,8 +1196,12 @@ namespace LazerFilesViewer
             Col = 0;
             Order = SortOrder.None;
         }
-        public int Compare(object x, object y)
+        public int Compare(object? x, object? y)
         {
+            if (x == null || y == null)
+            {
+                return 0;
+            }
             try
             {
                 int result = String.Compare(((ListViewItem)x).SubItems[Col].Text, ((ListViewItem)y).SubItems[Col].Text);

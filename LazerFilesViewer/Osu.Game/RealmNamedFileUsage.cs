@@ -8,7 +8,7 @@ namespace osu.Game
     [MapTo("RealmNamedFileUsage")]
     public class RealmNamedFileUsage : RealmObject
     {
-        public RealmFile? File { get; set; }
-        public string? Filename { get; set; }
+        public RealmFile File { get; set; } = null!;
+        public string Filename { get; set; } = null!;
     }
 }

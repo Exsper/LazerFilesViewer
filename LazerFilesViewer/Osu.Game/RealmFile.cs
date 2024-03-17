@@ -9,10 +9,10 @@ namespace osu.Game
     public class RealmFile : RealmObject
     {
         [PrimaryKey]
-        public string Hash { get; set; }
-        /*
+        public string Hash { get; set; } = string.Empty;
+
         [Backlink(nameof(RealmNamedFileUsage.File))]
         public IQueryable<RealmNamedFileUsage> Usages { get; } = null!;
-        */
+
     }
 }

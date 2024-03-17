@@ -10,22 +10,24 @@ namespace osu.Game
     {
         [PrimaryKey]
         public Guid ID { get; set; }
-        public string? DifficultyName { get; set; }
-        public RulesetInfo? Ruleset { get; set; }
-        public BeatmapDifficulty? Difficulty { get; set; }
-        public BeatmapMetadata? Metadata { get; set; }
-        public BeatmapUserSettings? UserSettings { get; set; }
+        public string DifficultyName { get; set; } = string.Empty;
+        public RulesetInfo Ruleset { get; set; } = null!;
+        public BeatmapDifficulty Difficulty { get; set; } = null!;
+        public BeatmapMetadata Metadata { get; set; } = null!;
+        [Backlink(nameof(ScoreInfo.BeatmapInfo))]
+        public IQueryable<ScoreInfo> Scores { get; } = null!;
+        public BeatmapUserSettings UserSettings { get; set; } = null!;
         public BeatmapSetInfo? BeatmapSet { get; set; }
         public int Status { get; set; }
         [Indexed]
         public int OnlineID { get; set; }
         public double Length { get; set; }
         public double BPM { get; set; }
-        public string? Hash { get; set; }
+        public string Hash { get; set; } = string.Empty;
         public double StarRating { get; set; }
         [Indexed]
-        public string? MD5Hash { get; set; }
-        public string? OnlineMD5Hash { get; set; }
+        public string MD5Hash { get; set; } = string.Empty;
+        public string OnlineMD5Hash { get; set; } = string.Empty;
         public DateTimeOffset? LastLocalUpdate { get; set; }
         public DateTimeOffset? LastOnlineUpdate { get; set; }
         public bool Hidden { get; set; }

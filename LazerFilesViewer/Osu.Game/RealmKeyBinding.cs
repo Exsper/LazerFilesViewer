@@ -6,13 +6,15 @@ using Realms;
 namespace osu.Game
 {
     [MapTo("KeyBinding")]
-    public class KeyBinding : RealmObject
+    public class RealmKeyBinding : RealmObject
     {
         [PrimaryKey]
         public Guid ID { get; set; }
         public string? RulesetName { get; set; }
         public int? Variant { get; set; }
-        public int Action { get; set; }
-        public string? KeyCombination { get; set; }
+        [MapTo("Action")]
+        public int ActionInt { get; set; }
+        [MapTo("KeyCombination")]
+        public string KeyCombinationString { get; set; } = null!;
     }
 }
