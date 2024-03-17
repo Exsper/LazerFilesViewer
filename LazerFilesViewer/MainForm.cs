@@ -1,13 +1,10 @@
 using LazerFilesViewer.Localisation;
 using Microsoft.VisualBasic.FileIO;
-using osu.Game.Beatmaps;
-using osu.Game.Skinning;
+using osu.Game;
 using Realms;
 using System.Collections;
 using System.Configuration;
 using System.Diagnostics;
-using System.Security.Policy;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LazerFilesViewer
 {
@@ -50,8 +47,23 @@ namespace LazerFilesViewer
         private void BuildDirectories()
         {
             Realm r = Realm.GetInstance(GetConfiguration());
-            var allBeatmaps = r.All<BeatmapSetInfo>();
-            foreach (var item in allBeatmaps)
+            var allSkins = r.All<SkinInfo>();
+            // var allScores = r.All<ScoreInfo>();
+            // var allRulesetSettings = r.All<RulesetSetting>();
+            // var allRulesets = r.All<RulesetInfo>();
+            // var allModPresets = r.All<ModPreset>();
+            // var allKeyBindings = r.All<KeyBinding>();
+            // var allFiles = r.All<RealmFile>();
+            var allBeatmapSets = r.All<BeatmapSetInfo>();
+            // var allBeatmapMetadatas = r.All<BeatmapMetadata>();
+            // var allBeatmapCollections = r.All<BeatmapCollection>();
+            // var allBeatmaps = r.All<BeatmapInfo>();
+            // var allUsers = r.All<RealmUser>();
+            // var allFileUsages = r.All<RealmNamedFileUsage>();
+            // var allBeatmapUserSettings = r.All<BeatmapUserSettings>();
+            // var allBeatmapDifficulty = r.All<BeatmapDifficulty>();
+
+            foreach (var item in allBeatmapSets)
             {
                 string title;
                 FakeDirectory d;
@@ -71,10 +83,9 @@ namespace LazerFilesViewer
                     d.AddFile(file.Filename, file.File.Hash);
                 }
             }
-            var allSkins = r.All<SkinInfo>();
             foreach (var item in allSkins)
             {
-                string title = item.ToString();
+                string title = item.Name;
                 FakeDirectory d = Skins.AddDirectory(title);
                 foreach (var file in item.Files)
                 {

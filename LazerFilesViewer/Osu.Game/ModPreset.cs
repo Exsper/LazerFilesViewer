@@ -5,17 +5,15 @@ using Realms;
 
 namespace osu.Game
 {
-    [MapTo("Skin")]
-    public class SkinInfo : RealmObject
+    [MapTo("ModPreset")]
+    public class ModPreset : RealmObject
     {
         [PrimaryKey]
         public Guid ID { get; set; }
+        public RulesetInfo? Ruleset { get; set; }
         public string? Name { get; set; }
-        public string? Creator { get; set; }
-        public string? InstantiationInfo { get; set; }
-        public string? Hash { get; set; }
-        public bool Protected { get; set; }
-        public IList<RealmNamedFileUsage> Files { get; } = null!;
+        public string? Description { get; set; }
+        public string? Mods { get; set; }
         public bool DeletePending { get; set; }
     }
 }

@@ -5,10 +5,9 @@ using Realms;
 
 namespace osu.Game
 {
-    [MapTo("RealmNamedFileUsage")]
-    public class RealmNamedFileUsage : RealmObject
+    [MapTo("BeatmapUserSettings")]
+    public class BeatmapUserSettings : RealmObject
     {
-        public RealmFile? File { get; set; }
-        public string? Filename { get; set; }
+        public double Offset { get; set; }
     }
 }

@@ -1,19 +1,15 @@
 ﻿// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the MIT Licence.
-// See the LICENCE file in the repository root for full licence text.
+// See the LICENCE file in the folder for full licence text.
 
 using Realms;
 
-namespace osu.Game.Models
+namespace osu.Game
 {
-    public class RealmUser : EmbeddedObject
+    [MapTo("RealmUser")]
+    public class RealmUser : RealmObject
     {
-        public int OnlineID { get; set; } = 1;
-
-        public string Username { get; set; } = string.Empty;
-
-
-        public bool IsBot => false;
-
-
+        public int OnlineID { get; set; }
+        public string? Username { get; set; }
+        public string? CountryCode { get; set; }
     }
 }
