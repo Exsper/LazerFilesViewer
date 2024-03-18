@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // 在此类的 SDK 样式项目中，现在，在此文件中早前定义的几个程序集属性将在生成期间自动添加，并使用在项目属性中定义的值进行填充。有关包含的属性以及如何定制此过程的详细信息，请参阅
 // https://aka.ms/assembly-info-properties
 [assembly: AssemblyTitle("LazerFilesViewer")]
-[assembly: AssemblyDescription("Lazer文件浏览器")]
+[assembly: AssemblyDescription("Lazer Files Viewer")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Exsper")]
 [assembly: AssemblyProduct("LazerFilesViewer")]
@@ -22,5 +22,5 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("a0ea5198-a395-4f8b-b32e-2638cae9e438")]
 
-[assembly: AssemblyVersion("1.0.0")]
-[assembly: AssemblyFileVersion("1.0.0")]
+[assembly: AssemblyVersion("1.1.0")]
+[assembly: AssemblyFileVersion("1.1.0")]

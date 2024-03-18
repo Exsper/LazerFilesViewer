@@ -6,7 +6,7 @@ using Realms;
 namespace osu.Game
 {
     [MapTo("BeatmapUserSettings")]
-    public class BeatmapUserSettings : RealmObject
+    public class BeatmapUserSettings : EmbeddedObject
     {
         public double Offset { get; set; }
     }

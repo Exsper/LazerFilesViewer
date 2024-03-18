@@ -176,6 +176,9 @@
   <data name="File_Open_Txt_ToolTipText" xml:space="preserve">
     <value>使用记事本程序打开存储文件</value>
   </data>
+  <data name="File_ReplaceWith" xml:space="preserve">
+    <value>将文件替换为...</value>
+  </data>
   <data name="File_Shell" xml:space="preserve">
     <value>调用存储文件系统右键菜单</value>
   </data>
@@ -207,7 +210,7 @@
     <value>打开文件夹</value>
   </data>
   <data name="Form_Name" xml:space="preserve">
-    <value>Lazer文件浏览器</value>
+    <value>Lazer文件浏览器 v1.1 beta1</value>
   </data>
   <data name="Language_Name" xml:space="preserve">
     <value>中文（简体）</value>
@@ -252,6 +255,9 @@
   <data name="String_Load_Database_Error" xml:space="preserve">
     <value>读取数据库出错</value>
   </data>
+  <data name="String_Message" xml:space="preserve">
+    <value>信息</value>
+  </data>
   <data name="String_No" xml:space="preserve">
     <value>否</value>
   </data>
@@ -268,11 +274,23 @@
   <data name="String_Open_Right_Click_Menu_Error" xml:space="preserve">
     <value>打开右键菜单失败</value>
   </data>
+  <data name="String_Replace_Complete" xml:space="preserve">
+    <value>替换完成，但需要重新打开程序才能显示更新后的内容。</value>
+  </data>
+  <data name="String_Replace_Error" xml:space="preserve">
+    <value>替换文件失败</value>
+  </data>
   <data name="String_Search_Result" xml:space="preserve">
     <value>搜索结果</value>
   </data>
+  <data name="String_Select_Any_File_Filter" xml:space="preserve">
+    <value>所有文件 (*.*)|*.*</value>
+  </data>
   <data name="String_Select_Database_File" xml:space="preserve">
     <value>选择Lazer数据库文件</value>
+  </data>
+  <data name="String_Select_Replace_File" xml:space="preserve">
+    <value>替换成什么文件？</value>
   </data>
   <data name="String_Warning" xml:space="preserve">
     <value>警告</value>

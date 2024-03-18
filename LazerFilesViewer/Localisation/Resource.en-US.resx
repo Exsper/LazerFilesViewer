@@ -176,6 +176,9 @@ May cause database corruption or Lazer exceptions, please use with caution!</val
   <data name="File_Open_Txt_ToolTipText" xml:space="preserve">
     <value>Open stored file with notepad.</value>
   </data>
+  <data name="File_ReplaceWith" xml:space="preserve">
+    <value>Replace with...</value>
+  </data>
   <data name="File_Shell" xml:space="preserve">
     <value>Call Stored File Right-Click Menu</value>
   </data>
@@ -207,7 +210,7 @@ May cause database corruption or Lazer exceptions, please use with caution!</val
     <value>Open the selected folder.</value>
   </data>
   <data name="Form_Name" xml:space="preserve">
-    <value>Lazer Files Viewer</value>
+    <value>Lazer Files Viewer v1.1 beta1</value>
   </data>
   <data name="Language_Name" xml:space="preserve">
     <value>English</value>
@@ -252,6 +255,9 @@ This operation will affect all the beatmaps and skins which using this files!</v
   <data name="String_Load_Database_Error" xml:space="preserve">
     <value>Error reading database</value>
   </data>
+  <data name="String_Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
   <data name="String_No" xml:space="preserve">
     <value>No</value>
   </data>
@@ -268,11 +274,23 @@ Try using "Call Right-Click Menu".</value>
   <data name="String_Open_Right_Click_Menu_Error" xml:space="preserve">
     <value>Failed to open right-click menu.</value>
   </data>
+  <data name="String_Replace_Complete" xml:space="preserve">
+    <value>Replace complete. Restart the program to update the content.</value>
+  </data>
+  <data name="String_Replace_Error" xml:space="preserve">
+    <value>Failed to replace file.</value>
+  </data>
   <data name="String_Search_Result" xml:space="preserve">
     <value>Search Result</value>
   </data>
+  <data name="String_Select_Any_File_Filter" xml:space="preserve">
+    <value>All Files (*.*)|*.*</value>
+  </data>
   <data name="String_Select_Database_File" xml:space="preserve">
     <value>Select Lazer Database File</value>
+  </data>
+  <data name="String_Select_Replace_File" xml:space="preserve">
+    <value>Replace with what file?</value>
   </data>
   <data name="String_Warning" xml:space="preserve">
     <value>Warning</value>

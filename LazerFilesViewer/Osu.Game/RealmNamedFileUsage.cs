@@ -6,7 +6,7 @@ using Realms;
 namespace osu.Game
 {
     [MapTo("RealmNamedFileUsage")]
-    public class RealmNamedFileUsage : RealmObject
+    public class RealmNamedFileUsage : EmbeddedObject
     {
         public RealmFile File { get; set; } = null!;
         public string Filename { get; set; } = null!;

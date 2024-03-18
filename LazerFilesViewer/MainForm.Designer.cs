@@ -77,6 +77,7 @@
             MainFormMenuStrip = new MenuStrip();
             AboutToolStripMenuItem = new ToolStripMenuItem();
             VisitRepoToolStripMenuItem = new ToolStripMenuItem();
+            TSMI_File_ReplaceWith = new ToolStripMenuItem();
             ViewerContextMenuStrip.SuspendLayout();
             MainToolStrip.SuspendLayout();
             MainFormMenuStrip.SuspendLayout();
@@ -122,15 +123,15 @@
             // 
             // ViewerContextMenuStrip
             // 
-            ViewerContextMenuStrip.Items.AddRange(new ToolStripItem[] { TSMI_File_Temp_Open, TSMI_File_GoToFolder, TSMI_File_Open_Txt, TSMI_File_Temp_Shell, TSMI_File_EnableMulti_Copy, TSMI_File_Shell, TSMI_File_OpenFolder, TSMI_File_EnableMulti_Delete, TSMI_Folder_Open, TSMI_Folder_EnableMulti_Copy, TSMI_Mix_EnableMulti_Copy, TSMI_Empty_Reload });
+            ViewerContextMenuStrip.Items.AddRange(new ToolStripItem[] { TSMI_File_Temp_Open, TSMI_File_GoToFolder, TSMI_File_Open_Txt, TSMI_File_Temp_Shell, TSMI_File_EnableMulti_Copy, TSMI_File_Shell, TSMI_File_OpenFolder, TSMI_File_ReplaceWith, TSMI_File_EnableMulti_Delete, TSMI_Folder_Open, TSMI_Folder_EnableMulti_Copy, TSMI_Mix_EnableMulti_Copy, TSMI_Empty_Reload });
             ViewerContextMenuStrip.Name = "ViewerContextMenuStrip";
-            ViewerContextMenuStrip.Size = new Size(176, 268);
+            ViewerContextMenuStrip.Size = new Size(181, 312);
             ViewerContextMenuStrip.Opening += ViewerContextMenuStrip_Opening;
             // 
             // TSMI_File_Temp_Open
             // 
             TSMI_File_Temp_Open.Name = "TSMI_File_Temp_Open";
-            TSMI_File_Temp_Open.Size = new Size(175, 22);
+            TSMI_File_Temp_Open.Size = new Size(180, 22);
             TSMI_File_Temp_Open.Text = "File_Temp_Open";
             TSMI_File_Temp_Open.ToolTipText = "File_Temp_Open_ToolTipText";
             TSMI_File_Temp_Open.Click += TSMI_File_Temp_Open_Click;
@@ -138,14 +139,14 @@
             // TSMI_File_GoToFolder
             // 
             TSMI_File_GoToFolder.Name = "TSMI_File_GoToFolder";
-            TSMI_File_GoToFolder.Size = new Size(175, 22);
+            TSMI_File_GoToFolder.Size = new Size(180, 22);
             TSMI_File_GoToFolder.Text = "File_GoToFolder";
             TSMI_File_GoToFolder.Click += TSMI_File_GoToFolder_Click;
             // 
             // TSMI_File_Open_Txt
             // 
             TSMI_File_Open_Txt.Name = "TSMI_File_Open_Txt";
-            TSMI_File_Open_Txt.Size = new Size(175, 22);
+            TSMI_File_Open_Txt.Size = new Size(180, 22);
             TSMI_File_Open_Txt.Text = "File_Open_Txt";
             TSMI_File_Open_Txt.ToolTipText = "File_Open_Txt_ToolTipText";
             TSMI_File_Open_Txt.Click += TSMI_File_Open_Txt_Click;
@@ -153,7 +154,7 @@
             // TSMI_File_Temp_Shell
             // 
             TSMI_File_Temp_Shell.Name = "TSMI_File_Temp_Shell";
-            TSMI_File_Temp_Shell.Size = new Size(175, 22);
+            TSMI_File_Temp_Shell.Size = new Size(180, 22);
             TSMI_File_Temp_Shell.Text = "File_Temp_Shell";
             TSMI_File_Temp_Shell.ToolTipText = "将存储文件以真正文件名复制到临时文件夹并调用系统右键菜单";
             TSMI_File_Temp_Shell.Click += TSMI_File_Temp_Shell_Click;
@@ -161,7 +162,7 @@
             // TSMI_File_EnableMulti_Copy
             // 
             TSMI_File_EnableMulti_Copy.Name = "TSMI_File_EnableMulti_Copy";
-            TSMI_File_EnableMulti_Copy.Size = new Size(175, 22);
+            TSMI_File_EnableMulti_Copy.Size = new Size(180, 22);
             TSMI_File_EnableMulti_Copy.Text = "File_Export";
             TSMI_File_EnableMulti_Copy.ToolTipText = "File_Export_ToolTipText";
             TSMI_File_EnableMulti_Copy.Click += TSMI_File_EnableMulti_Copy_Click;
@@ -169,7 +170,7 @@
             // TSMI_File_Shell
             // 
             TSMI_File_Shell.Name = "TSMI_File_Shell";
-            TSMI_File_Shell.Size = new Size(175, 22);
+            TSMI_File_Shell.Size = new Size(180, 22);
             TSMI_File_Shell.Text = "File_Shell";
             TSMI_File_Shell.ToolTipText = "File_Shell_ToolTipText";
             TSMI_File_Shell.Click += TSMI_File_Shell_Click;
@@ -177,7 +178,7 @@
             // TSMI_File_OpenFolder
             // 
             TSMI_File_OpenFolder.Name = "TSMI_File_OpenFolder";
-            TSMI_File_OpenFolder.Size = new Size(175, 22);
+            TSMI_File_OpenFolder.Size = new Size(180, 22);
             TSMI_File_OpenFolder.Text = "File_OpenFolder";
             TSMI_File_OpenFolder.Click += TSMI_File_OpenFolder_Click;
             // 
@@ -185,7 +186,7 @@
             // 
             TSMI_File_EnableMulti_Delete.ForeColor = Color.Red;
             TSMI_File_EnableMulti_Delete.Name = "TSMI_File_EnableMulti_Delete";
-            TSMI_File_EnableMulti_Delete.Size = new Size(175, 22);
+            TSMI_File_EnableMulti_Delete.Size = new Size(180, 22);
             TSMI_File_EnableMulti_Delete.Text = "File_Delete";
             TSMI_File_EnableMulti_Delete.ToolTipText = "File_Delete_ToolTipText";
             TSMI_File_EnableMulti_Delete.Click += TSMI_File_EnableMulti_Delete_Click;
@@ -193,7 +194,7 @@
             // TSMI_Folder_Open
             // 
             TSMI_Folder_Open.Name = "TSMI_Folder_Open";
-            TSMI_Folder_Open.Size = new Size(175, 22);
+            TSMI_Folder_Open.Size = new Size(180, 22);
             TSMI_Folder_Open.Text = "Folder_Open";
             TSMI_Folder_Open.ToolTipText = "Folder_Open_ToolTipText";
             TSMI_Folder_Open.Click += TSMI_Folder_Open_Click;
@@ -201,7 +202,7 @@
             // TSMI_Folder_EnableMulti_Copy
             // 
             TSMI_Folder_EnableMulti_Copy.Name = "TSMI_Folder_EnableMulti_Copy";
-            TSMI_Folder_EnableMulti_Copy.Size = new Size(175, 22);
+            TSMI_Folder_EnableMulti_Copy.Size = new Size(180, 22);
             TSMI_Folder_EnableMulti_Copy.Text = "Folder_Export";
             TSMI_Folder_EnableMulti_Copy.ToolTipText = "Folder_Export_ToolTipText";
             TSMI_Folder_EnableMulti_Copy.Click += TSMI_Folder_EnableMulti_Copy_Click;
@@ -209,7 +210,7 @@
             // TSMI_Mix_EnableMulti_Copy
             // 
             TSMI_Mix_EnableMulti_Copy.Name = "TSMI_Mix_EnableMulti_Copy";
-            TSMI_Mix_EnableMulti_Copy.Size = new Size(175, 22);
+            TSMI_Mix_EnableMulti_Copy.Size = new Size(180, 22);
             TSMI_Mix_EnableMulti_Copy.Text = "FileFolder_Export";
             TSMI_Mix_EnableMulti_Copy.ToolTipText = "FileFolder_Export_ToolTipText";
             TSMI_Mix_EnableMulti_Copy.Click += TSMI_Mix_EnableMulti_Copy_Click;
@@ -217,7 +218,7 @@
             // TSMI_Empty_Reload
             // 
             TSMI_Empty_Reload.Name = "TSMI_Empty_Reload";
-            TSMI_Empty_Reload.Size = new Size(175, 22);
+            TSMI_Empty_Reload.Size = new Size(180, 22);
             TSMI_Empty_Reload.Text = "Refresh";
             TSMI_Empty_Reload.ToolTipText = "Refresh_ToolTipText";
             TSMI_Empty_Reload.Click += TSMI_Empty_Reload_Click;
@@ -438,6 +439,14 @@
             VisitRepoToolStripMenuItem.Text = "ToolStrip_About_VisitRepo";
             VisitRepoToolStripMenuItem.Click += VisitRepoToolStripMenuItem_Click;
             // 
+            // TSMI_File_ReplaceWith
+            // 
+            TSMI_File_ReplaceWith.ForeColor = Color.Red;
+            TSMI_File_ReplaceWith.Name = "TSMI_File_ReplaceWith";
+            TSMI_File_ReplaceWith.Size = new Size(180, 22);
+            TSMI_File_ReplaceWith.Text = "File_ReplaceWith";
+            TSMI_File_ReplaceWith.Click += TSMI_File_ReplaceWith_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -506,5 +515,6 @@
         private ToolStripMenuItem OpenDatabaseFolderToolStripMenuItem;
         private ToolStripMenuItem BackupToolStripMenuItem;
         private ToolStripMenuItem OpenBackupFolderToolStripMenuItem;
+        private ToolStripMenuItem TSMI_File_ReplaceWith;
     }
 }

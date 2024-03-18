@@ -8,6 +8,8 @@
 
         public string KeyWords { get; set; }
 
+        public Guid ID { get; set; } = Guid.Empty;
+
         public List<FakeDirectory> ChildDirectories { get; set; }
         public List<FakeFile> ChildFiles { get; set; }
         public FakeDirectory(string name, string preName, string keyWords = "")

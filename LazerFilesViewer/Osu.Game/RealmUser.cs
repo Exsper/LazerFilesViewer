@@ -6,7 +6,7 @@ using Realms;
 namespace osu.Game
 {
     [MapTo("RealmUser")]
-    public class RealmUser : RealmObject
+    public class RealmUser : EmbeddedObject
     {
         public int OnlineID { get; set; }
         public string Username { get; set; } = string.Empty;

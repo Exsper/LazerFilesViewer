@@ -6,7 +6,7 @@ using Realms;
 namespace osu.Game
 {
     [MapTo("BeatmapDifficulty")]
-    public class BeatmapDifficulty : RealmObject
+    public class BeatmapDifficulty : EmbeddedObject
     {
         public float DrainRate { get; set; }
         public float CircleSize { get; set; }

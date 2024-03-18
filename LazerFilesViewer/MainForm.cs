@@ -1,10 +1,14 @@
 using LazerFilesViewer.Localisation;
 using Microsoft.VisualBasic.FileIO;
+using Microsoft.VisualBasic.Logging;
 using osu.Game;
 using Realms;
 using System.Collections;
 using System.Configuration;
 using System.Diagnostics;
+
+using System.Security.Policy;
+using System.Text;
 
 namespace LazerFilesViewer
 {
@@ -33,12 +37,12 @@ namespace LazerFilesViewer
         string HideDeleted = "-1";
         string Lang = "";
 
-        private RealmConfiguration GetConfiguration()
+        private RealmConfiguration GetConfiguration(bool isReadOnly = true)
         {
             return new RealmConfiguration(DataBasePath)
             {
                 SchemaVersion = schema_version,
-                IsReadOnly = true,
+                IsReadOnly = isReadOnly,
                 //MigrationCallback = onMigration,
                 //FallbackPipePath = tempPathLocation,
             };
@@ -46,16 +50,18 @@ namespace LazerFilesViewer
 
         private void BuildDirectories()
         {
+
             Realm r = Realm.GetInstance(GetConfiguration());
+
             var allSkins = r.All<SkinInfo>();
             var allBeatmapSets = r.All<BeatmapSetInfo>();
             /*
+            var allFiles = r.All<RealmFile>();
             var allScores = r.All<ScoreInfo>();
             var allRulesetSettings = r.All<RealmRulesetSetting>();
             var allRulesets = r.All<RulesetInfo>();
             var allModPresets = r.All<ModPreset>();
             var allKeyBindings = r.All<RealmKeyBinding>();
-            var allFiles = r.All<RealmFile>();
             var allBeatmapMetadatas = r.All<BeatmapMetadata>();
             var allBeatmapCollections = r.All<BeatmapCollection>();
             var allBeatmaps = r.All<BeatmapInfo>();
@@ -64,6 +70,8 @@ namespace LazerFilesViewer
             var allBeatmapUserSettings = r.All<BeatmapUserSettings>();
             var allBeatmapDifficulty = r.All<BeatmapDifficulty>();
             */
+
+
             foreach (var item in allBeatmapSets)
             {
                 string title;
@@ -73,6 +81,7 @@ namespace LazerFilesViewer
                     BeatmapMetadata bm = item.Beatmaps.First().Metadata;
                     title = item.OnlineID + " " + bm.ArtistUnicode + " - " + bm.TitleUnicode;
                     d = Songs.AddDirectory(title, bm.Artist + " " + bm.Title + " " + bm.Author.Username + " " + bm.Tags);
+                    d.ID = item.ID;
                 }
                 else
                 {
@@ -88,12 +97,15 @@ namespace LazerFilesViewer
             {
                 string title = item.Name;
                 FakeDirectory d = Skins.AddDirectory(title);
+                d.ID = item.ID;
                 foreach (var file in item.Files)
                 {
                     d.AddFile(file.Filename, file.File.Hash);
                 }
             }
+
             r.Dispose();
+
             AddUpdateAppSettings("LazerPath", LazerPath);
             AddUpdateAppSettings("LazerFilePath", LazerFilePath);
             AddUpdateAppSettings("DataBasePath", DataBasePath);
@@ -312,6 +324,7 @@ namespace LazerFilesViewer
             TSMI_File_Shell.Text = Language.GetString("File_Shell");
             TSMI_File_Shell.ToolTipText = Language.GetString("File_Shell_ToolTipText");
             TSMI_File_OpenFolder.Text = Language.GetString("File_OpenFolder");
+            TSMI_File_ReplaceWith.Text = Language.GetString("File_ReplaceWith");
             TSMI_File_EnableMulti_Delete.Text = Language.GetString("File_Delete");
             TSMI_File_EnableMulti_Delete.ToolTipText = Language.GetString("File_Delete_ToolTipText");
             TSMI_Folder_Open.Text = Language.GetString("Folder_Open");
@@ -490,6 +503,7 @@ namespace LazerFilesViewer
             TSMI_File_EnableMulti_Copy.Visible = false;
             TSMI_File_Shell.Visible = false;
             TSMI_File_OpenFolder.Visible = false;
+            TSMI_File_ReplaceWith.Visible = false;
             TSMI_File_EnableMulti_Delete.Visible = false;
             TSMI_Folder_Open.Visible = false;
             TSMI_Folder_EnableMulti_Copy.Visible = false;
@@ -505,6 +519,7 @@ namespace LazerFilesViewer
             TSMI_File_EnableMulti_Copy.Visible = true;
             TSMI_File_Shell.Visible = true;
             TSMI_File_OpenFolder.Visible = true;
+            TSMI_File_ReplaceWith.Visible = true;
             TSMI_File_EnableMulti_Delete.Visible = true;
             TSMI_Folder_Open.Visible = false;
             TSMI_Folder_EnableMulti_Copy.Visible = false;
@@ -520,6 +535,7 @@ namespace LazerFilesViewer
             TSMI_File_EnableMulti_Copy.Visible = true;
             TSMI_File_Shell.Visible = false;
             TSMI_File_OpenFolder.Visible = false;
+            TSMI_File_ReplaceWith.Visible = false;
             TSMI_File_EnableMulti_Delete.Visible = true;
             TSMI_Folder_Open.Visible = false;
             TSMI_Folder_EnableMulti_Copy.Visible = false;
@@ -535,6 +551,7 @@ namespace LazerFilesViewer
             TSMI_File_EnableMulti_Copy.Visible = false;
             TSMI_File_Shell.Visible = false;
             TSMI_File_OpenFolder.Visible = false;
+            TSMI_File_ReplaceWith.Visible = false;
             TSMI_File_EnableMulti_Delete.Visible = false;
             TSMI_Folder_Open.Visible = true;
             TSMI_Folder_EnableMulti_Copy.Visible = true;
@@ -550,6 +567,7 @@ namespace LazerFilesViewer
             TSMI_File_EnableMulti_Copy.Visible = false;
             TSMI_File_Shell.Visible = false;
             TSMI_File_OpenFolder.Visible = false;
+            TSMI_File_ReplaceWith.Visible = false;
             TSMI_File_EnableMulti_Delete.Visible = false;
             TSMI_Folder_Open.Visible = false;
             TSMI_Folder_EnableMulti_Copy.Visible = true;
@@ -565,6 +583,7 @@ namespace LazerFilesViewer
             TSMI_File_EnableMulti_Copy.Visible = false;
             TSMI_File_Shell.Visible = false;
             TSMI_File_OpenFolder.Visible = false;
+            TSMI_File_ReplaceWith.Visible = false;
             TSMI_File_EnableMulti_Delete.Visible = false;
             TSMI_Folder_Open.Visible = false;
             TSMI_Folder_EnableMulti_Copy.Visible = false;
@@ -1171,6 +1190,116 @@ namespace LazerFilesViewer
         }
 
 
+
+        private async void TSMI_File_ReplaceWith_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = Language.GetString("String_Select_Any_File_Filter");
+            openFileDialog.Title = Language.GetString("String_Select_Replace_File");
+            openFileDialog.Multiselect = false;
+            openFileDialog.CheckFileExists = true;
+            openFileDialog.CheckPathExists = true;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string aimfile = openFileDialog.FileName;
+                try
+                {
+                    string hash = String.Empty;
+                    try
+                    {
+                        hash = Storage.AddToStorage(aimfile, LazerFilePath);
+                    }
+                    catch(Exception ex)
+                    {
+                        throw new Exception(Language.GetString("String_Create_File_Error") + "\r\n" + ex);
+                    }
+
+                    // TODO: warning
+
+                    Realm r = Realm.GetInstance(GetConfiguration(false));
+                    var existing = r.Find<RealmFile>(hash);
+                    var rf = existing ?? new RealmFile { Hash = hash };
+                    await Database.AddtoRealm(r, rf);
+
+                    var oldFF = SelectedItemsList.FakeFiles[0];
+                    if (oldFF == null) throw new Exception("'SelectedItemsList' has error.");
+                    if (oldFF.FullName.StartsWith(@"\\Songs"))
+                    {
+                        var allBeatmapSets = r.All<BeatmapSetInfo>();
+                        string beatmapName = oldFF.FullName.Substring(7).Split("\\", StringSplitOptions.RemoveEmptyEntries)[0];
+                        var d = Songs.GetDirectory(beatmapName);
+                        if (d != null && d.ID != Guid.Empty)
+                        {
+                            var bsi = allBeatmapSets.ToList().Find((bsi)=> bsi.ID == d.ID);
+                            if (bsi != null)
+                            {
+                                var rnfus = bsi.Files;
+                                var rnfu = rnfus.ToList().Find((r) => r.File.Hash == oldFF.Hash);
+
+                                if (rnfu != null) {
+                                    await Database.ChangeFile(r, rnfu, rf);
+                                }
+                                else
+                                {
+                                    throw new Exception("Couldn't find file hash.");
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("Couldn't find beatmap by ID.");
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception("Couldn't find beatmap by name.");
+                        }
+                    }
+                    else if (oldFF.FullName.StartsWith(@"\\Skins"))
+                    {
+                        var allSkins = r.All<SkinInfo>();
+                        string skinName = oldFF.FullName.Substring(7).Split("\\", StringSplitOptions.RemoveEmptyEntries)[0];
+                        var d = Skins.GetDirectory(skinName);
+                        if (d != null && d.ID != Guid.Empty)
+                        {
+                            var si = allSkins.ToList().Find((si) => si.ID == d.ID);
+                            if (si != null)
+                            {
+                                var rnfus = si.Files;
+                                var rnfu = rnfus.ToList().Find((r) => r.File.Hash == oldFF.Hash);
+
+                                if (rnfu != null)
+                                {
+                                    await Database.ChangeFile(r, rnfu, rf);
+                                }
+                                else
+                                {
+                                    throw new Exception("Couldn't find file hash.");
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("Couldn't find skin by ID.");
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception("Couldn't find skin by name.");
+                        }
+                    }
+                    r.Refresh();
+                    r.Dispose();
+
+                    //TODO: Reload issue - Must restart the program to load new contents.
+                    MessageBox.Show(Language.GetString("String_Replace_Complete"), Language.GetString("String_Message"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Reload();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(Language.GetString("String_Replace_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+        }
     }
 
     public class SelectedItemsList
