@@ -3,6 +3,8 @@ using Microsoft.VisualBasic.FileIO;
 using Microsoft.VisualBasic.Logging;
 using osu.Game;
 using Realms;
+using Realms.Logging;
+using System.Buffers;
 using System.Collections;
 using System.Configuration;
 using System.Diagnostics;
@@ -14,7 +16,7 @@ namespace LazerFilesViewer
 {
     public partial class MainForm : Form
     {
-        private const int schema_version = 40;
+        private const int schema_version = 41;
 
         private string TempFolder = AppDomain.CurrentDomain.BaseDirectory + "tmp\\";
         private string BackupFolder = AppDomain.CurrentDomain.BaseDirectory + "Backups\\";
@@ -355,6 +357,38 @@ namespace LazerFilesViewer
         {
             Lang = ConfigurationManager.AppSettings["Lang"] ?? "";
             SetLangText(Lang);
+
+            if (File.Exists(LazerPath + "storage.ini"))
+            {
+                using (var stream = File.Open(LazerPath + "storage.ini", FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    if (stream == null)
+                        return;
+
+                    using (var reader = new StreamReader(stream))
+                    {
+                        string line;
+
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            int equalsIndex = line.IndexOf('=');
+
+                            if (line.Length == 0 || line[0] == '#' || equalsIndex < 0) continue;
+
+                            string key = line.AsSpan(0, equalsIndex).Trim().ToString();
+                            string val = line.AsSpan(equalsIndex + 1).Trim().ToString();
+
+                            if (key == "FullPath" && val != "")
+                            {
+                                LazerPath = val + @"\";
+                                LazerFilePath = val + @"\files\";
+                                DataBasePath = val + @"\client.realm";
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
 
             DeleteWarning = ConfigurationManager.AppSettings["DeleteWarning"] ?? DeleteWarning;
             DeleteWarningStripMenuItem.Checked = (DeleteWarning == "1") ? true : false;
