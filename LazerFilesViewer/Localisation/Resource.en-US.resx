@@ -233,6 +233,9 @@ May cause database corruption or Lazer exceptions, please use with caution!</val
   <data name="String_Create_File_Error" xml:space="preserve">
     <value>Failed to create file</value>
   </data>
+  <data name="String_Database_Version_Warning" xml:space="preserve">
+    <value>The current database version is inconsistent with the software settings version, which may cause issues. If your Lazer version is the latest version, please submit an issue.</value>
+  </data>
   <data name="String_Delete_Error" xml:space="preserve">
     <value>Failed to delete.</value>
   </data>

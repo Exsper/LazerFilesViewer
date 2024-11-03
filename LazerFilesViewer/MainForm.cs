@@ -16,7 +16,9 @@ namespace LazerFilesViewer
 {
     public partial class MainForm : Form
     {
-        private const int schema_version = 43;
+        private ulong newest_schema_version = 43;
+        private ulong schema_version = 43;
+        private bool shownVersionWarning = false;
 
         private string TempFolder = AppDomain.CurrentDomain.BaseDirectory + "tmp\\";
         private string BackupFolder = AppDomain.CurrentDomain.BaseDirectory + "Backups\\";
@@ -52,8 +54,13 @@ namespace LazerFilesViewer
 
         private void BuildDirectories()
         {
-
             Realm r = Realm.GetInstance(GetConfiguration());
+
+            if (!shownVersionWarning && schema_version < newest_schema_version)
+            {
+                DialogResult result = MessageBox.Show(Language.GetString("String_Database_Version_Warning"), Language.GetString("String_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                shownVersionWarning = true;
+            }
 
             var allSkins = r.All<SkinInfo>();
             var allBeatmapSets = r.All<BeatmapSetInfo>();
@@ -111,6 +118,29 @@ namespace LazerFilesViewer
             AddUpdateAppSettings("LazerPath", LazerPath);
             AddUpdateAppSettings("LazerFilePath", LazerFilePath);
             AddUpdateAppSettings("DataBasePath", DataBasePath);
+        }
+
+        private void ReadRealm()
+        {
+            try
+            {
+                BuildDirectories();
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.StartsWith("Provided schema version") && schema_version == newest_schema_version)
+                {
+                    string correctVersion = ex.Message.Split(" ").Last();
+                    correctVersion = correctVersion.Substring(0, correctVersion.Length - 1);
+                    schema_version = ulong.Parse(correctVersion);
+                    if (schema_version != newest_schema_version) { ReadRealm(); return; }
+                }
+                DialogResult result = MessageBox.Show(Language.GetString("String_Load_Database_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (result == DialogResult.OK)
+                {
+                    Close();
+                }
+            }
         }
 
         static void AddUpdateAppSettings(string key, string value)
@@ -432,18 +462,7 @@ namespace LazerFilesViewer
                 }
             }
 
-            try
-            {
-                BuildDirectories();
-            }
-            catch (Exception ex)
-            {
-                DialogResult result = MessageBox.Show(Language.GetString("String_Load_Database_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (result == DialogResult.OK)
-                {
-                    Close();
-                }
-            }
+            ReadRealm();
 
             OpenPath("");
         }
@@ -701,18 +720,7 @@ namespace LazerFilesViewer
             HistoryPoint? hp = historyControl.GetCurrentHistoryPoint();
             if (reloadDataBase)
             {
-                try
-                {
-                    BuildDirectories();
-                }
-                catch (Exception ex)
-                {
-                    DialogResult result = MessageBox.Show(Language.GetString("String_Load_Database_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (result == DialogResult.OK)
-                    {
-                        Close();
-                    }
-                }
+                ReadRealm();
             }
             if (hp == null)
             {
@@ -1138,18 +1146,7 @@ namespace LazerFilesViewer
                 LazerFilePath = LazerPath + @"files\";
             }
 
-            try
-            {
-                BuildDirectories();
-            }
-            catch (Exception ex)
-            {
-                DialogResult result = MessageBox.Show(Language.GetString("String_Load_Database_Error") + "\r\n" + ex, Language.GetString("String_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (result == DialogResult.OK)
-                {
-                    Close();
-                }
-            }
+            ReadRealm();
 
             OpenPath("");
         }

@@ -233,6 +233,9 @@
   <data name="String_Create_File_Error" xml:space="preserve">
     <value>创建文件时发生错误</value>
   </data>
+  <data name="String_Database_Version_Warning" xml:space="preserve">
+    <value>当前数据库版本与软件设置版本不一致，可能会遇到问题。如lazer版本为最新版本，请提交issue</value>
+  </data>
   <data name="String_Delete_Error" xml:space="preserve">
     <value>删除文件失败</value>
   </data>
