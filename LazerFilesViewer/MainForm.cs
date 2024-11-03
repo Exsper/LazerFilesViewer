@@ -16,7 +16,7 @@ namespace LazerFilesViewer
 {
     public partial class MainForm : Form
     {
-        private const int schema_version = 41;
+        private const int schema_version = 43;
 
         private string TempFolder = AppDomain.CurrentDomain.BaseDirectory + "tmp\\";
         private string BackupFolder = AppDomain.CurrentDomain.BaseDirectory + "Backups\\";
